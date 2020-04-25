@@ -13,6 +13,7 @@
 ### 2. Backend setup - Install Node dependencies
 In MoviesLibrary/backend/:
 * `$ npm install`
+* Whitelist the server IP address in MongoDB Atlas
 * Manually copy .env, which looks like this:
 ```
 ATLAS_URI=<MongoDB Atlas connection string>

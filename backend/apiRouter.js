@@ -8,6 +8,7 @@ router.route('/movies').post((req, res) => {
 
 // GET '/api/movies'
 router.route('/movies').get((req, res) => {
+	res.send(`GET /api/movies`);
 });
 
 
