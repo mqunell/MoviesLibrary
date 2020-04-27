@@ -1,4 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import axios from 'axios'  // Promise-based HTTP client
+
 
 export default class Add extends Component {
 	state = {
@@ -22,9 +24,14 @@ export default class Add extends Component {
 			title: this.state.title,
 			year: this.state.year
 		}
+		// seriesName: this.state.seriesName || null
 
-		// Access OMDb API here
-		console.log(movie)
+		// Send movie data to backend
+		axios
+			.post('http://localhost:5050/api/movies', movie)
+			.then(response => {
+				console.log(response)
+			})
 	}
 
 	render() {
@@ -81,7 +88,7 @@ export default class Add extends Component {
 							<label className="form-check-label" htmlFor="inputDigital">Digital</label>
 						</div>
 					</div>
-					<div className="form-group col-md-2">
+					<div className="form-group col-md-4">
 							<div className="form-check form-check-inline">
 							<input className="form-check-input" type="checkbox" id="inputStreaming" value="format5"/>
 							<label className="form-check-label" htmlFor="inputStreaming">Streaming Service</label>
