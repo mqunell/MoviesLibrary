@@ -4,18 +4,18 @@ import axios from 'axios'
 // Functional React component (no state or lifecycle methods)
 // Good for accepting props and returning JSX
 const MovieDetails = props => (
-	<tr>
-		<td>{props.movie.title}</td>
-		<td>{props.movie.year}</td>
-		<td>{props.movie.rating}</td>
-		<td>{props.movie.runtime}</td>
-		<td>{props.movie.genre}</td>
-		<td>{props.movie.director}</td>
-		<td>{props.movie.actors}</td>
-		<td>{props.movie.plot}</td>
-		<td>{props.movie.poster}</td>
-		<td>{props.movie.metacritic}</td>
-	</tr>
+	<div className="movie_card">
+		<img className="movie_card_image" src={props.movie.poster} alt="Cover art"/>
+		<div className="movie_card_details">
+			<p>{props.movie.title} ({props.movie.year})</p>
+			<div className="movie_card_details_line">
+				<p>{props.movie.runtime}</p>
+				<p>{props.movie.rating}</p>
+				<p>{props.movie.metacritic}/100</p>
+			</div>
+			<p>{props.movie.plot}</p>
+		</div>
+	</div>
 )
 
 
@@ -37,7 +37,6 @@ export default class Library extends Component {
 	}
 
 	getAllMovies() {
-		console.log('here')
 		return this.state.movies.map(currentMovie => {
 			return <MovieDetails movie={currentMovie}/>
 		})
@@ -45,25 +44,9 @@ export default class Library extends Component {
 
 	render() {
 		return (
-			<table className="table">
-				<thead className="thead-dark">
-					<tr>
-						<th>Title</th>
-						<th>Year</th>
-						<th>Rating</th>
-						<th>Runtime</th>
-						<th>Genre</th>
-						<th>Director</th>
-						<th>Actors</th>
-						<th>Plot</th>
-						<th>Poster</th>
-						<th>Metacritic</th>
-					</tr>
-				</thead>
-				<tbody>
-					{ this.getAllMovies() }
-				</tbody>
-			</table>
-		);
+			<div className="movie_card_container">
+				{ this.getAllMovies() }
+			</div>
+		)
 	}
 }
