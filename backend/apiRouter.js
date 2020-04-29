@@ -20,9 +20,13 @@ router.route('/movies').post((req, res) => {
 			const rating = d.Rated
 			const runtime = d.Runtime
 			const genre = d.Genre
-			const actors = d.Actors.split(', ')
-
-			const newMovie = new Movie({ title, year, rating, runtime, genre })
+			const director = d.Director
+			const actors = d.Actors
+			const plot = d.Plot
+			const poster = d.Poster
+			const metacritic = d.Metascore
+			
+			const newMovie = new Movie({ title, year, rating, runtime, genre, director, actors, plot, poster, metacritic })
 			newMovie.save()
 				.then(() => res.send(newMovie))
 				.catch(err => res.status(400).json('Error: ' + err))
