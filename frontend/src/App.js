@@ -12,7 +12,7 @@ import About from './components/about'
 
 function App() {
 	return (<Router>
-		<div className="container-xl">
+		<div className="container-fluid">
 			<Navbar />
 
 			<Route path="/" exact component={Home} />

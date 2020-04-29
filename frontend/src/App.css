@@ -1,4 +1,9 @@
-/* Library */
+/* --- Library --- */
+.container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
 .movie_card_container {
 	display: flex;
 	flex-wrap: wrap;
@@ -54,7 +59,7 @@
 }
 
 
-/* Add */
+/* --- Add --- */
 form {
 	padding: 16px;
 }
