@@ -1,7 +1,7 @@
 # Installation instructions
 
 ### 0. Requirements
-* Node.js
+* [Node.js](https://github.com/nodesource/distributions/blob/master/README.md#debinstall "Node.js") (npm included)
 
 <br/>
 
@@ -18,10 +18,15 @@ In MoviesLibrary/backend/:
 ```
 ATLAS_URI=<MongoDB Atlas connection string>
 PORT=<Port number>
+OMDB_KEY=<OMDb key>
 ```
+
+Start with `nodemon server.js`
 
 <br/>
 
 ### 3. Frontend setup - Install React dependencies
 In MoviesLibrary/frontend/:
 * `$ npm install`
+
+Start with `$ npm start`

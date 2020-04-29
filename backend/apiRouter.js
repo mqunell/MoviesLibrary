@@ -23,8 +23,7 @@ router.route('/movies').post((req, res) => {
 			const actors = d.Actors.split(', ')
 
 			const newMovie = new Movie({ title, year, rating, runtime, genre })
-			newMovie
-				.save()
+			newMovie.save()
 				.then(() => res.send(newMovie))
 				.catch(err => res.status(400).json('Error: ' + err))
 		})
@@ -33,7 +32,9 @@ router.route('/movies').post((req, res) => {
 
 // GET '/api/movies'
 router.route('/movies').get((req, res) => {
-	res.send(`GET /api/movies`)
+	Movie.find()
+		.then(exercises => res.json(exercises))
+		.catch(err => res.status(400).json('Error: ' + err))
 })
 
 
