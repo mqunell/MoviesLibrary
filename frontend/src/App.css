@@ -1,9 +1,4 @@
 /* --- Library --- */
-.container-fluid {
-	padding-left: 0px;
-	padding-right: 0px;
-}
-
 .movie_card_container {
 	display: flex;
 	flex-wrap: wrap;
@@ -60,6 +55,28 @@
 
 
 /* --- Add --- */
+/* Bootstrap overrides */
+.container-fluid {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.alert {
+	position: fixed;
+	left: calc(50% - 100px);
+	bottom: -68px;
+	width: 200px;
+	height: 50px;
+	margin-bottom: 0;
+	text-align: center;
+	transition: 0.4s ease;
+}
+
+/* Custom */
 form {
-	padding: 16px;
+	padding: 18px;
+}
+
+.show_alert {
+	bottom: 18px !important;
 }

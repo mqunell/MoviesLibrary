@@ -49,10 +49,23 @@ export default class Add extends Component {
 			formats: this.state.formats
 		}
 
+		const alert = document.getElementById('alert')
+		alert.innerHTML = 'Adding movie...'
+		alert.classList = 'alert alert-info show_alert'
+
 		// Send movie data to backend
 		axios.post('http://localhost:5050/api/movies', movie)
 			.then(response => {
-				console.log(response)
+				if (response.status === 200) {
+					alert.innerHTML = 'Movie added'
+					alert.classList = 'alert alert-success show_alert'
+				}
+				else {
+					alert.innerHTML = 'Unknown error'
+					alert.classList = 'alert alert-danger show_alert'
+				}
+
+				setTimeout(() => { alert.classList = 'alert' }, 3000)
 			})
 	}
 
@@ -127,10 +140,14 @@ export default class Add extends Component {
 					</div>
 				</div>
 
-				<div className="form-group">
+				<div className="form-row">
 					<input type="submit" className="btn btn-primary" value="Fetch Movie Data"/>
 				</div>
 			</form>
+
+			<div id="alert" className="alert" role="alert">
+				Success alert test
+			</div>
 		</>)
 	}
 }
