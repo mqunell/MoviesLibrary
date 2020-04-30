@@ -6,27 +6,38 @@ let Movie = require('./models/movie')
 
 // POST '/api/movies'
 router.route('/movies').post((req, res) => {
-	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&t=${req.body.title}`
-	if (req.body.year !== null) {
-		omdbUrl += `&y=${req.body.year}`
+	// User data
+	const { title } = req.body
+	const { year } = req.body
+	const { seriesName } = req.body
+	const { seriesIndex } = req.body
+	const { formats } = req.body
+
+	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&t=${title}`
+	if (year !== null) {
+		omdbUrl += `&y=${year}`
 	}
 
-	axios
-		.get(omdbUrl)
+	axios.get(omdbUrl)
 		.then(response => {
 			const d = response.data
-			const title = d.Title
-			const year = d.Year
-			const rating = d.Rated
-			const runtime = d.Runtime
-			const genre = d.Genre
-			const director = d.Director
-			const actors = d.Actors
-			const plot = d.Plot
-			const poster = d.Poster
-			const metacritic = d.Metascore
-			
-			const newMovie = new Movie({ title, year, rating, runtime, genre, director, actors, plot, poster, metacritic })
+
+			const newMovie = new Movie({
+				title: d.Title,
+				year: d.Year,
+				rating: d.Rated,
+				runtime: d.Runtime,
+				genre: d.Genre,
+				director: d.Director,
+				actors: d.Actors,
+				plot: d.Plot,
+				poster: d.Poster,
+				metacritic: d.Metascore,
+				seriesName,
+				seriesIndex,
+				formats
+			})
+
 			newMovie.save()
 				.then(() => res.send(newMovie))
 				.catch(err => res.status(400).json('Error: ' + err))
