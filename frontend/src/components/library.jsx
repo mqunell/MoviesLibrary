@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 
+
 // Functional React component (no state or lifecycle methods)
 // Good for accepting props and returning JSX
 const MovieDetails = props => (

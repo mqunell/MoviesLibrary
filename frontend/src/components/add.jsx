@@ -2,6 +2,17 @@ import React, { Component } from 'react'
 import axios from 'axios'  // Promise-based HTTP client
 
 
+const FormatCheckbox = props => (
+	<div className={'form-group col-md-' + props.data.width}>
+		<div className="form-check form-check-inline">
+			<input className="form-check-input" type="checkbox" id={props.data.id} value={props.data.value}
+				onChange={props.data.onChange}/>
+			<label className="form-check-label" htmlFor={props.data.id}>{props.data.text}</label>
+		</div>
+	</div>
+)
+
+
 export default class Add extends Component {
 	state = {
 		title: '',
@@ -99,41 +110,41 @@ export default class Add extends Component {
 				<div className="form-row">
 					<legend className="col-form-label">Format(s)</legend>
 
-					<div className="form-group col-md-2">
-						<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputDvd" value="1"
-								onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputDvd">DVD</label>
-						</div>
-					</div>
-					<div className="form-group col-md-2">
-							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputBluray" value="2"
-								onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputBluray">Bluray</label>
-						</div>
-					</div>
-					<div className="form-group col-md-2">
-							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="input4k" value="3"
-								onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="input4k">4K Bluray</label>
-						</div>
-					</div>
-					<div className="form-group col-md-2">
-							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputDigital" value="4"
-								onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputDigital">Digital</label>
-						</div>
-					</div>
-					<div className="form-group col-md-4">
-							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputStreaming" value="5"
-								onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputStreaming">Streaming Service</label>
-						</div>
-					</div>
+					<FormatCheckbox data={{
+						width: 2,
+						id: "inputDvd",
+						value: "1",
+						onChange: this.onChangeFormats,
+						text: "DVD"
+					}}/>
+					<FormatCheckbox data={{
+						width: 2,
+						id: "inputBluray",
+						value: "2",
+						onChange: this.onChangeFormats,
+						text: "Bluray"
+					}}/>
+					<FormatCheckbox data={{
+						width: 2,
+						id: "input4k",
+						value: "3",
+						onChange: this.onChangeFormats,
+						text: "4K Bluray"
+					}}/>
+					<FormatCheckbox data={{
+						width: 2,
+						id: "inputDigital",
+						value: "4",
+						onChange: this.onChangeFormats,
+						text: "Digital"
+					}}/>
+					<FormatCheckbox data={{
+						width: 4,
+						id: "inputStreaming",
+						value: "5",
+						onChange: this.onChangeFormats,
+						text: "Streaming Service"
+					}}/>
 				</div>
 
 				<div className="form-row">
