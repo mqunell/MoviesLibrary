@@ -7,11 +7,7 @@ let Movie = require('./models/movie')
 // POST '/api/movies'
 router.route('/movies').post((req, res) => {
 	// User data
-	const { title } = req.body
-	const { year } = req.body
-	const { seriesName } = req.body
-	const { seriesIndex } = req.body
-	const { formats } = req.body
+	const { title, year, seriesName, seriesIndex, formats } = req.body
 
 	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&t=${title}`
 	if (year !== null) {

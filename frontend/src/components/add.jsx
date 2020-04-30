@@ -6,8 +6,8 @@ export default class Add extends Component {
 	state = {
 		title: '',
 		year: '',
-		seriesName: '',
-		seriesIndex: 0,
+		seriesName: null,
+		seriesIndex: null,
 		formats: ''
 	}
 
@@ -20,7 +20,7 @@ export default class Add extends Component {
 	}
 
 	onChangeSeriesName = (e) => {
-		this.setState({ seriesName: e.target.value })
+		this.setState({ seriesName: e.target.value }) 
 	}
 
 	onChangeSeriesIndex = (e) => {
@@ -29,10 +29,11 @@ export default class Add extends Component {
 
 	onChangeFormats = (e) => {
 		const formatNum = e.target.value
+		const currentFormats = this.state.formats
 
-		const newFormats = (this.state.formats.includes(formatNum))
-			? this.state.formats.replace(formatNum, '')
-			: this.state.formats + formatNum
+		const newFormats = (currentFormats.includes(formatNum))
+			? currentFormats.replace(formatNum, '')
+			: currentFormats + formatNum
 
 		this.setState({ formats: newFormats })
 	}
@@ -41,13 +42,8 @@ export default class Add extends Component {
 		// Prevent default HTML form submit event
 		e.preventDefault()
 
-		const movie = {
-			title: this.state.title,
-			year: this.state.year,
-			seriesName: this.state.seriesName || null,
-			seriesIndex: this.state.seriesIndex || null,
-			formats: this.state.formats
-		}
+		const { title, year, seriesName, seriesIndex, formats } = this.state
+		const movie = { title, year, seriesName, seriesIndex, formats }
 
 		const alert = document.getElementById('alert')
 		alert.innerHTML = 'Adding movie...'
