@@ -56,6 +56,20 @@
 
 /* --- Add --- */
 /* Bootstrap overrides */
+.navbar {
+	flex-flow: row nowrap;
+	justify-content: flex-start;
+}
+
+.navbar-nav {
+	flex-direction: row;
+}
+
+.navbar-expand-sm .navbar-nav .nav-link {
+	padding-right: 0.5rem;
+	padding-left: 0.5rem;
+}
+
 .container-fluid {
 	padding-left: 0px;
 	padding-right: 0px;
