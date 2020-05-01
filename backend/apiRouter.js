@@ -4,7 +4,7 @@ const axios = require('axios')  // Promise-based HTTP client
 let Movie = require('./models/movie')
 
 
-// POST '/api/movies'
+// POST '/api/movies' - Adds a new movie
 router.route('/movies').post((req, res) => {
 	// User data
 	const { title, year, seriesName, seriesIndex, formats } = req.body
@@ -41,10 +41,10 @@ router.route('/movies').post((req, res) => {
 })
 
 
-// GET '/api/movies'
+// GET '/api/movies' - Gets all movies
 router.route('/movies').get((req, res) => {
 	Movie.find()
-		.then(exercises => res.json(exercises))
+		.then(movies => res.json(movies))
 		.catch(err => res.status(400).json('Error: ' + err))
 })
 
@@ -56,6 +56,16 @@ router.route('/movies/:id').get((req, res) => {
 
 // PUT '/api/movies/:id'
 router.route('/movies/:id').put((req, res) => {
+})
+
+
+// DELETE '/api/movies' - Deletes all movies
+router.route('/movies').delete((req, res) => {
+	console.log('here')
+
+	Movie.deleteMany({})
+		.then(output => res.json(output))
+		.catch(err => res.startus(400).json('Error: ' + err))
 })
 
 
