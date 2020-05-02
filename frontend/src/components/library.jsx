@@ -38,8 +38,9 @@ export default class Library extends Component {
 	}
 
 	getAllMovies() {
+		// Use MongoDB ID for React key
 		return this.state.movies.map(currentMovie => {
-			return <MovieDetails movie={currentMovie}/>
+			return <MovieDetails movie={currentMovie} key={currentMovie._id}/>
 		})
 	}
 
