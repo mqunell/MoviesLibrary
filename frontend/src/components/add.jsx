@@ -63,15 +63,20 @@ export default class Add extends Component {
 		// Send movie data to backend
 		axios.post('http://localhost:5050/api/movies', movie)
 			.then(response => {
-				if (response.status === 200) {
-					alert.innerHTML = 'Movie added'
-					alert.classList = 'alert alert-success show_alert'
-				}
-				else {
-					alert.innerHTML = 'Unknown error'
+				alert.innerHTML = `${response.data.title} added`
+				alert.classList = 'alert alert-success show_alert'
+			})
+			.catch(error => {
+				if (error.response) {
+					alert.innerHTML = `Error: ${error.response.data}`
 					alert.classList = 'alert alert-danger show_alert'
 				}
-
+				else {
+					alert.innerHTML = `Error: Could not connect to server`
+					alert.classList = 'alert alert-danger show_alert'
+				}
+			})
+			.then(() => {
 				setTimeout(() => { alert.classList = 'alert' }, 3000)
 			})
 	}
