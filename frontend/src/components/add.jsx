@@ -56,29 +56,33 @@ export default class Add extends Component {
 		const { title, year, seriesName, seriesIndex, formats } = this.state
 		const movie = { title, year, seriesName, seriesIndex, formats }
 
-		const alert = document.getElementById('alert')
-		alert.innerHTML = 'Adding movie...'
-		alert.classList = 'alert alert-info show_alert'
+		this.showAlert('Adding movie...', 'info', false)
 
 		// Send movie data to backend
 		axios.post('http://localhost:5050/api/movies', movie)
 			.then(response => {
-				alert.innerHTML = `${response.data.title} added`
-				alert.classList = 'alert alert-success show_alert'
+				this.showAlert(`${response.data.title} added`, 'success', true)
 			})
 			.catch(error => {
-				if (error.response) {
-					alert.innerHTML = `Error: ${error.response.data}`
-					alert.classList = 'alert alert-danger show_alert'
-				}
-				else {
-					alert.innerHTML = `Error: Could not connect to server`
-					alert.classList = 'alert alert-danger show_alert'
-				}
+				this.showAlert(`Error: ${error.response ? error.response.data : 'Could not connect to server'}`, 'danger', true)
 			})
-			.then(() => {
-				setTimeout(() => { alert.classList = 'alert' }, 3000)
-			})
+	}
+
+	/**
+	 * Helper function for creating Bootstrap alerts
+	 * @param {string} text The text to show in the alert
+	 * @param {string} type The type of Bootstrap alert (primary, success, danger, info, etc)
+	 * @param {boolean} autoHide Automatically hide the alert or not
+	 */
+	showAlert(text, type, autoHide) {
+		const alert = document.getElementById('alert')
+
+		alert.innerHTML = text
+		alert.classList = `alert alert-${type} show_alert`
+
+		if (autoHide) {
+			setTimeout(() => { alert.classList = 'alert' }, 3000)
+		}
 	}
 
 	render() {
