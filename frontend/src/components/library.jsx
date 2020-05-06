@@ -8,13 +8,41 @@ const MovieDetails = props => (
 	<div className="movie_card">
 		<img className="movie_card_image" src={props.movie.poster} alt="Cover art"/>
 		<div className="movie_card_details">
-			<p>{props.movie.title} ({props.movie.year})</p>
 			<div className="movie_card_details_line">
-				<p>{props.movie.runtime}</p>
+				<p>{props.movie.title.length > 40 ? props.movie.title.slice(0, 40) + '...' : props.movie.title}</p>
+				<p>{props.movie.year}</p>
+			</div>
+
+			<div className="movie_card_details_line">
 				<p>{props.movie.rating}</p>
+				<p>{props.movie.runtime}</p>
 				<p>{props.movie.metacritic}/100</p>
 			</div>
+
 			<p>{props.movie.plot}</p>
+
+			<div className="formats_container">
+				<div className={'format_item format_dvd' + (props.movie.formats.includes('1') ? ' has_format' : '')}>
+					<i class="fas fa-compact-disc"></i>
+					<p>DVD</p>
+				</div>
+				<div className={'format_item format_bluray' + (props.movie.formats.includes('2') ? ' has_format' : '')}>
+					<i class="fas fa-compact-disc"></i>
+					<p>Bluray</p>
+				</div>
+				<div className={'format_item format_4k' + (props.movie.formats.includes('3') ? ' has_format' : '')}>
+					<i class="fas fa-compact-disc"></i>
+					<p>4K</p>
+				</div>
+				<div className={'format_item format_digital' + (props.movie.formats.includes('4') ? ' has_format' : '')}>
+					<i class="fas fa-hdd"></i>
+					<p>Digital</p>
+				</div>
+				<div className={'format_item format_streaming' + (props.movie.formats.includes('5') ? ' has_format' : '')}>
+					<i class="fas fa-cloud"></i>
+					<p>Stream</p>
+				</div>
+			</div>
 		</div>
 	</div>
 )
