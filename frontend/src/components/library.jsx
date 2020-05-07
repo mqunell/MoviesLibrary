@@ -88,11 +88,46 @@ export default class Library extends Component {
 		})
 	}
 
+	sortMovies = (sortBy) => {
+		const sortedMovies = this.state.movies.sort((a, b) => {
+			if (sortBy === 'name') {
+				return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0
+			}
+			else if (sortBy === 'series') {
+				const asn = a.seriesName
+				const bsn = b.seriesName
+
+				if (asn !== null && bsn !== null) {  // Both have seriesName
+					if (asn === bsn) return (a.seriesIndex < b.seriesIndex) ? -1 : 1  // Same series
+					else return (asn < bsn) ? -1 : 1  // Different series
+				}
+				else {  // Both don't have seriesName
+					if (asn !== null || bsn !== null) return (asn !== null) ? -1 : 1  // One has seriesName
+					else return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0  // Neither has seriesName
+				}
+			}
+			else if (sortBy === 'runtime') {
+				const art = parseInt(a.runtime)
+				const brt = parseInt(b.runtime)
+				
+				return (art < brt) ? -1 : (art > brt) ? 1 : 0
+			}
+		})
+
+		this.setState(sortedMovies)
+	}
+
 	render() {
-		return (
+		return (<>
+			<div className="sort_container" role="group">
+				<p>Sort by:</p>
+				<button type="button" className="btn btn-primary" onClick={() => this.sortMovies('name')}>Name</button>
+				<button type="button" className="btn btn-primary" onClick={() => this.sortMovies('series')}>Series</button>
+				<button type="button" className="btn btn-primary" onClick={() => this.sortMovies('runtime')}>Duration</button>
+			</div>
 			<div className="movie_card_container">
 				{ this.getAllMovies() }
 			</div>
-		)
+		</>)
 	}
 }
