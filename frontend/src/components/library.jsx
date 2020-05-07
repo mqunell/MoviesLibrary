@@ -22,28 +22,44 @@ const MovieDetails = props => (
 			<p>{props.movie.plot}</p>
 
 			<div className="formats_container">
-				<div className={'format_item format_dvd' + (props.movie.formats.includes('1') ? ' has_format' : '')}>
-					<i class="fas fa-compact-disc"></i>
-					<p>DVD</p>
-				</div>
-				<div className={'format_item format_bluray' + (props.movie.formats.includes('2') ? ' has_format' : '')}>
-					<i class="fas fa-compact-disc"></i>
-					<p>Bluray</p>
-				</div>
-				<div className={'format_item format_4k' + (props.movie.formats.includes('3') ? ' has_format' : '')}>
-					<i class="fas fa-compact-disc"></i>
-					<p>4K</p>
-				</div>
-				<div className={'format_item format_digital' + (props.movie.formats.includes('4') ? ' has_format' : '')}>
-					<i class="fas fa-hdd"></i>
-					<p>Digital</p>
-				</div>
-				<div className={'format_item format_streaming' + (props.movie.formats.includes('5') ? ' has_format' : '')}>
-					<i class="fas fa-cloud"></i>
-					<p>Stream</p>
-				</div>
+				<MovieFormatItem data={{
+					formatString: 'DVD',
+					hasFormat: props.movie.formats.includes('1'),
+					formatIcon: 'compact-disc'
+				}}/>
+
+				<MovieFormatItem data={{
+					formatString: 'Bluray',
+					hasFormat: props.movie.formats.includes('2'),
+					formatIcon: 'compact-disc'
+				}}/>
+
+				<MovieFormatItem data={{
+					formatString: '4K',
+					hasFormat: props.movie.formats.includes('3'),
+					formatIcon: 'compact-disc'
+				}}/>
+
+				<MovieFormatItem data={{
+					formatString: 'Digital',
+					hasFormat: props.movie.formats.includes('4'),
+					formatIcon: 'hdd'
+				}}/>
+
+				<MovieFormatItem data={{
+					formatString: 'Stream',
+					hasFormat: props.movie.formats.includes('5'),
+					formatIcon: 'cloud'
+				}}/>
 			</div>
 		</div>
+	</div>
+)
+
+const MovieFormatItem = props => (
+	<div className={'format_item format_' + props.data.formatString.toLowerCase() + (props.data.hasFormat ? ' has_format' : '')}>
+		<i className={'fas fa-' + props.data.formatIcon}></i>
+		<p>{props.data.formatString}</p>
 	</div>
 )
 
