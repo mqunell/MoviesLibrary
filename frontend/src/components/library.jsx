@@ -70,10 +70,11 @@ export default class Library extends Component {
 	}
 
 	componentDidMount() {
+		// Get movies from backend, sort by title, and set to this.state
 		axios.get('http://localhost:5050/api/movies')
 			.then(response => {
 				this.setState({
-					movies: response.data
+					movies: response.data.sort((a, b) => (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0)
 				})
 			})
 			.catch(error => {
@@ -89,24 +90,29 @@ export default class Library extends Component {
 	}
 
 	sortMovies = (sortBy) => {
+		this.toggleDropdown()
+		document.getElementById('sort_button').innerHTML = sortBy
+
 		const sortedMovies = this.state.movies.sort((a, b) => {
-			if (sortBy === 'name') {
+			if (sortBy === 'Title') {
 				return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0
 			}
-			else if (sortBy === 'series') {
+			else if (sortBy === 'Series') {
 				const asn = a.seriesName
 				const bsn = b.seriesName
 
-				if (asn !== null && bsn !== null) {  // Both have seriesName
-					if (asn === bsn) return (a.seriesIndex < b.seriesIndex) ? -1 : 1  // Same series
-					else return (asn < bsn) ? -1 : 1  // Different series
+				// Both have series; same series; different series
+				if (asn !== null && bsn !== null) {
+					if (asn === bsn) return (a.seriesIndex < b.seriesIndex) ? -1 : 1
+					else return (asn < bsn) ? -1 : 1
 				}
-				else {  // Both don't have seriesName
-					if (asn !== null || bsn !== null) return (asn !== null) ? -1 : 1  // One has seriesName
-					else return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0  // Neither has seriesName
+				// Both don't have series; one has series; neither has series
+				else {
+					if (asn !== null || bsn !== null) return (asn !== null) ? -1 : 1
+					else return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0
 				}
 			}
-			else if (sortBy === 'runtime') {
+			else if (sortBy === 'Runtime') {
 				const art = parseInt(a.runtime)
 				const brt = parseInt(b.runtime)
 
@@ -117,14 +123,26 @@ export default class Library extends Component {
 		this.setState(sortedMovies)
 	}
 
+	toggleDropdown() {
+		document.getElementById('sort_dropdown').classList.toggle('show')
+	}
+
 	render() {
 		return (<>
 			<div className="sort_container" role="group">
 				<p>Sort by:</p>
-				<button type="button" className="btn btn-primary" onClick={() => this.sortMovies('name')}>Name</button>
-				<button type="button" className="btn btn-primary" onClick={() => this.sortMovies('series')}>Series</button>
-				<button type="button" className="btn btn-primary" onClick={() => this.sortMovies('runtime')}>Duration</button>
+				<div className="dropdown">
+					<button id="sort_button" className="btn btn-primary dropdown-toggle" type="button" onClick={this.classList.toggle('show')}>
+						Title
+					</button>
+					<div id="sort_dropdown" className="dropdown-menu">
+						<span className="dropdown-item" onClick={() => this.sortMovies('Title')}>Title</span>
+						<span className="dropdown-item" onClick={() => this.sortMovies('Series')}>Series</span>
+						<span className="dropdown-item" onClick={() => this.sortMovies('Runtime')}>Duration</span>
+					</div>
+				</div>
 			</div>
+
 			<div className="movie_card_container">
 				{ this.getAllMovies() }
 			</div>
