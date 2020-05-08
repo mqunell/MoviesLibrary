@@ -31,7 +31,7 @@ export default class Add extends Component {
 	}
 
 	onChangeSeriesName = (e) => {
-		this.setState({ seriesName: e.target.value }) 
+		this.setState({ seriesName: e.target.value })
 	}
 
 	onChangeSeriesIndex = (e) => {

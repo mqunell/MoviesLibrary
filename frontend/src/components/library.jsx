@@ -109,7 +109,7 @@ export default class Library extends Component {
 			else if (sortBy === 'runtime') {
 				const art = parseInt(a.runtime)
 				const brt = parseInt(b.runtime)
-				
+
 				return (art < brt) ? -1 : (art > brt) ? 1 : 0
 			}
 		})

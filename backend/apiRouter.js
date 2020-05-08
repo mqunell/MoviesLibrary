@@ -69,7 +69,7 @@ router.route('/movies/:id').delete((req, res) => {
  * Creates a Movie based on custom data from the user and retrieved data from OMDb
  *
  * @param {object} userData User-submitted data
- * @param {object} omdbData OMDb data 
+ * @param {object} omdbData OMDb data
  */
 function createMovie(userData, omdbData) {
 	return new Movie({
