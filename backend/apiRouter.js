@@ -42,6 +42,9 @@ router.route('/movies').get((req, res) => {
 
 // GET '/api/movies/:id'
 router.route('/movies/:id').get((req, res) => {
+	Movie.findById(req.params.id)
+		.then(movie => res.json(movie))
+		.catch(err => res.status(400).json('Error: ' + err))
 })
 
 
@@ -52,8 +55,6 @@ router.route('/movies/:id').put((req, res) => {
 
 // DELETE '/api/movies' - Deletes all movies
 router.route('/movies').delete((req, res) => {
-	console.log('here')
-
 	Movie.deleteMany({})
 		.then(output => res.json(output))
 		.catch(err => res.startus(400).json('Error: ' + err))
@@ -62,6 +63,9 @@ router.route('/movies').delete((req, res) => {
 
 // DELETE '/api/movies/:id'
 router.route('/movies/:id').delete((req, res) => {
+	Movie.findByIdAndDelete(req.params.id)
+		.then(movie => res.json(movie))
+		.catch(err => res.status(400).json('Error: ' + err))
 })
 
 
