@@ -66,7 +66,9 @@ const MovieFormatItem = props => (
 
 export default class Library extends Component {
 	state = {
-		movies: []
+		movies: [],
+		sortDropdownText: 'Title',
+		sortDropdownDisplayed: false
 	}
 
 	componentDidMount() {
@@ -90,8 +92,8 @@ export default class Library extends Component {
 	}
 
 	sortMovies = (sortBy) => {
-		this.toggleDropdown()
-		document.getElementById('sort_button').innerHTML = sortBy
+		this.toggleSortDropdown()
+		this.setState({ sortDropdownText: sortBy })
 
 		const sortedMovies = this.state.movies.sort((a, b) => {
 			if (sortBy === 'Title') {
@@ -120,11 +122,11 @@ export default class Library extends Component {
 			}
 		})
 
-		this.setState(sortedMovies)
+		this.setState({ movies: sortedMovies })
 	}
 
-	toggleDropdown() {
-		document.getElementById('sort_dropdown').classList.toggle('show')
+	toggleSortDropdown = () => {
+		this.setState( { sortDropdownDisplayed: !this.state.sortDropdownDisplayed })
 	}
 
 	render() {
@@ -132,10 +134,10 @@ export default class Library extends Component {
 			<div className="sort_container" role="group">
 				<p>Sort by:</p>
 				<div className="dropdown">
-					<button id="sort_button" className="btn btn-primary dropdown-toggle" type="button" onClick={this.classList.toggle('show')}>
-						Title
+					<button id="sort_button" className="btn btn-primary dropdown-toggle" type="button" onClick={this.toggleSortDropdown}>
+						{this.state.sortDropdownText}
 					</button>
-					<div id="sort_dropdown" className="dropdown-menu">
+					<div id="sort_dropdown" className={'dropdown-menu' + (this.state.sortDropdownDisplayed ? ' show' : '')}>
 						<span className="dropdown-item" onClick={() => this.sortMovies('Title')}>Title</span>
 						<span className="dropdown-item" onClick={() => this.sortMovies('Series')}>Series</span>
 						<span className="dropdown-item" onClick={() => this.sortMovies('Runtime')}>Duration</span>
