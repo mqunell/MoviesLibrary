@@ -19,7 +19,9 @@ export default class Add extends Component {
 		year: '',
 		seriesName: null,
 		seriesIndex: null,
-		formats: ''
+		formats: '',
+		alertText: '',
+		alertClasses: 'alert'
 	}
 
 	onChangeTitle = (e) => {
@@ -75,13 +77,13 @@ export default class Add extends Component {
 	 * @param {boolean} autoHide Automatically hide the alert or not
 	 */
 	showAlert(text, type, autoHide) {
-		const alert = document.getElementById('alert')
-
-		alert.innerHTML = text
-		alert.classList = `alert alert-${type} show_alert`
+		this.setState({
+			alertText: text,
+			alertClasses: `alert alert-${type} show_alert`
+		})
 
 		if (autoHide) {
-			setTimeout(() => { alert.classList = 'alert' }, 3000)
+			setTimeout(() => {this.setState({ alertClasses: 'alert' })}, 3000)
 		}
 	}
 
@@ -161,8 +163,8 @@ export default class Add extends Component {
 				</div>
 			</form>
 
-			<div id="alert" className="alert" role="alert">
-				Success alert test
+			<div id="alert" className={this.state.alertClasses} role="alert">
+				{this.state.alertText}
 			</div>
 		</>)
 	}
