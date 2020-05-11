@@ -4,7 +4,10 @@ const axios = require('axios')  // Promise-based HTTP client
 let Movie = require('./models/movie')
 
 
-// POST '/api/movies' - Adds a new movie
+/**
+ * POST '/api/movies' - Adds a new movie
+ * Handles the OMDb API and calls addMovie()
+ */
 router.route('/movies').post((req, res) => {
 	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&t=${req.body.title}`
 	if (req.body.year !== null) {
@@ -16,10 +19,7 @@ router.route('/movies').post((req, res) => {
 			if (omdbResponse.status === 200) {
 				if (omdbResponse.data.Response === 'True') {
 					const newMovie = createMovie(req.body, omdbResponse.data)
-
-					newMovie.save()
-						.then(() => res.send(newMovie))
-						.catch(err => res.status(400).json('MongoDB error: ' + err))
+					addMovie(newMovie, res)
 				}
 				else {
 					res.status(400).send(omdbResponse.data.Error)
@@ -92,5 +92,28 @@ function createMovie(userData, omdbData) {
 		formats: userData.formats
 	})
 }
+
+
+/**
+ * Checks if a movie already exists in the database then adds it
+ *
+ * @param {Movie object} newMovie The movie from OMDb
+ * @param {HTTP object} res The HTTP response for sending data back
+ */
+function addMovie(newMovie, res) {
+	Movie.find({ title: newMovie.title })
+		.then(results => {
+			if (results.length == 0) {
+				newMovie.save()
+					.then(() => res.send(newMovie))
+					.catch(err => res.status(400).json('Database error: ' + err))
+			}
+			else {
+				res.status(400).send(`${newMovie.title} is already added`)
+			}
+		})
+		.catch(error => res.status(400).send('Error while checking database: ' + err))
+}
+
 
 module.exports = router
