@@ -84,11 +84,27 @@ export default class Library extends Component {
 			})
 	}
 
+	// Returns an array of <MovieDetails> (and <h1> is sorting by series)
 	getAllMovies() {
-		// Use MongoDB ID for React key
-		return this.state.movies.map(currentMovie => {
-			return <MovieDetails movie={currentMovie} key={currentMovie._id}/>
+		let output = []
+		let currentSeries = ''
+
+		this.state.movies.forEach(movie => {
+			// Append series names if sorted by series
+			if (this.state.sortDropdownText === 'Series') {
+				const seriesName = movie.seriesName || 'Misc'
+	
+				if (seriesName !== currentSeries) {
+					output.push(<h1 className="series_name" key={seriesName + 'heading'}>{seriesName}</h1>)
+					currentSeries = seriesName
+				}
+			}
+
+			// Use MongoDB ID for React key
+			output.push(<MovieDetails movie={movie} key={movie._id}/>)
 		})
+
+		return output
 	}
 
 	sortMovies = (sortBy) => {
@@ -140,7 +156,7 @@ export default class Library extends Component {
 					<div id="sort_dropdown" className={'dropdown-menu' + (this.state.sortDropdownDisplayed ? ' show' : '')}>
 						<span className="dropdown-item" onClick={() => this.sortMovies('Title')}>Title</span>
 						<span className="dropdown-item" onClick={() => this.sortMovies('Series')}>Series</span>
-						<span className="dropdown-item" onClick={() => this.sortMovies('Runtime')}>Duration</span>
+						<span className="dropdown-item" onClick={() => this.sortMovies('Runtime')}>Runtime</span>
 					</div>
 				</div>
 			</div>

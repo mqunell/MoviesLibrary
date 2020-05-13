@@ -4,7 +4,7 @@
 	display: flex;
 	align-items: center;
 	width: max-content;
-	margin: 10px auto 0px;
+	margin: 10px auto;
 }
 
 .sort_container > p {
@@ -20,6 +20,18 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+}
+
+h1.series_name {
+	width: 100%;
+	margin-bottom: 0px;
+	padding: 6px 0px;
+	text-align: center;
+	border-top: 1px solid rgb(200, 200, 200);
+}
+
+h1.series_name:not(:first-of-type) {
+	margin-top: 8px;
 }
 
 .movie_card {
