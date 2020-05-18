@@ -43,11 +43,8 @@ h1.series_name:not(:first-of-type) {
 	overflow: hidden;
 }
 
-.movie_card_image, .movie_card_details {
-	position: relative;
-}
-
 .movie_card_image {
+	position: relative;
 	display: block;
 	width: 100%;
 	height: 100%;
