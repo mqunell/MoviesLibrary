@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // Functional React component (no state or lifecycle methods)
 // Good for accepting props and returning JSX
-const MovieDetails = props => (
+const MovieCard = props => (
 	<div className="movie_card">
 		<img className="movie_card_image" src={props.movie.poster} alt="Cover art"/>
 		<div className="movie_card_details">
@@ -84,7 +84,7 @@ export default class Library extends Component {
 			})
 	}
 
-	// Returns an array of <MovieDetails> (and <h1> is sorting by series)
+	// Returns an array of <MovieCard> (and <h1> is sorting by series)
 	getAllMovies() {
 		let output = []
 		let currentSeries = ''
@@ -101,7 +101,7 @@ export default class Library extends Component {
 			}
 
 			// Use MongoDB ID for React key
-			output.push(<MovieDetails movie={movie} key={movie._id}/>)
+			output.push(<MovieCard movie={movie} key={movie._id}/>)
 		})
 
 		return output
