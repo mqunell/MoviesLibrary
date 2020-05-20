@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css'
 import './App.css';
 
-import Navbar from './components/navbar'
-import Home from './components/home'
-import Library from './components/library'
-import Add from './components/add'
-import About from './components/about'
+import Navbar from './components/Navbar'
+import Home from './components/Home'
+import Library from './components/Library'
+import Add from './components/Add'
+import About from './components/About'
 
 
 function App() {
