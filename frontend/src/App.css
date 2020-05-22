@@ -65,8 +65,8 @@ h1.series_name:not(:first-of-type) {
 	transition: .4s ease;
 }
 
-.movie_card:hover .movie_card_details {
-	top: 55%;
+.movie_card_details_visible {
+	top: 55% !important;
 }
 
 .movie_card_details p {
@@ -142,3 +142,10 @@ form {
 .show_alert {
 	bottom: 18px !important;
 }
+
+
+/* @media only screen and (min-width: 600px) {
+	.movie_card:hover .movie_card_details {
+		top: 55%;
+	}
+} */
