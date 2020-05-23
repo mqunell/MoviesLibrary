@@ -1,24 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { Navbar, Nav } from 'react-bootstrap'
 
-const Navbar = () => {
-	return (
-		<nav className="navbar navbar-expand-sm navbar-dark bg-dark">
-			<Link to="/" className="navbar-brand">Movies Library</Link>
+const MyNavbar = () => (
+	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+		<Navbar.Brand as={NavLink} to="/">Movies Library</Navbar.Brand>
+		
+		<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+		
+		<Navbar.Collapse id="responsive-navbar-nav">
+			<Nav className="mr-auto">
+				<Nav.Link as={NavLink} to="/library">Library</Nav.Link>
+				<Nav.Link as={NavLink} to="/add">Add</Nav.Link>
+				<Nav.Link as={NavLink} to="/about">About</Nav.Link>
+			</Nav>
+		</Navbar.Collapse>
+	</Navbar>
+)
 
-			<ul className="navbar-nav">
-				<li className="navbar-item">
-					<Link to="/library" className="nav-link">Library</Link>
-				</li>
-				<li className="navbar-item">
-					<Link to="/add" className="nav-link">Add</Link>
-				</li>
-				<li className="navbar-item">
-					<Link to="/about" className="nav-link">About</Link>
-				</li>
-			</ul>
-		</nav>
-	)
-}
-
-export default Navbar;
+export default MyNavbar;
