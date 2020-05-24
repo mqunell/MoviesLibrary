@@ -8,15 +8,11 @@ const MovieFormatItem = props => (
 )
 
 export default class MovieCard extends Component {
-	showModal = () => {
-		console.log(this.props.movie)
-	}
-
 	render() {
 		const { poster, title, year, rating, runtime, metacritic, plot, formats } = this.props.movie
 
 		return (
-			<div className="movie_card" onClick={this.showModal}>
+			<div className="movie_card" onClick={() => {this.props.showModal(this.props.movie)}}>
 				<img className="movie_card_image" src={poster} alt="Cover art"/>
 				<div className="movie_card_details">
 					<div className="movie_card_details_line">

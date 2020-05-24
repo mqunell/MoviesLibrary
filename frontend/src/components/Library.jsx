@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Modal } from 'react-bootstrap'
 import MovieCard from './MovieCard'
 import axios from 'axios'
 
@@ -7,7 +8,8 @@ export default class Library extends Component {
 	state = {
 		movies: [],
 		sortDropdownText: 'Title',
-		sortDropdownDisplayed: false
+		sortDropdownDisplayed: false,
+		showModal: false
 	}
 
 	componentDidMount() {
@@ -40,7 +42,7 @@ export default class Library extends Component {
 			}
 
 			// Use MongoDB ID for React key
-			output.push(<MovieCard movie={movie} key={movie._id} />)
+			output.push(<MovieCard movie={movie} showModal={this.showModal} key={movie._id} />)
 		})
 
 		return output
@@ -84,6 +86,10 @@ export default class Library extends Component {
 		this.setState( { sortDropdownDisplayed: !this.state.sortDropdownDisplayed })
 	}
 
+	showModal = movie => {
+		this.setState({ showModal: true })
+	}
+
 	render() {
 		return (<>
 			<div className="sort_container" role="group">
@@ -103,6 +109,12 @@ export default class Library extends Component {
 			<div className="movie_card_container">
 				{ this.getAllMovies() }
 			</div>
+
+			<Modal show={this.state.showModal} onHide={() => {this.setState({ showModal: false })}} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+				<Modal.Body>
+					<p>Test</p>
+				</Modal.Body>
+			</Modal>
 		</>)
 	}
 }

@@ -39,7 +39,7 @@ h1.series_name:not(:first-of-type) {
 	margin: 12px;
 	width: 156px;
 	height: 231.4px;
-	box-shadow: 0px 0px 6px #343a40;
+	box-shadow: 0px 0px 6px 0px #343a40;
 	overflow: hidden;
 }
 
@@ -134,6 +134,11 @@ form {
 	.movie_card {
 		width: 300px;
 		height: 445px;
+		cursor: pointer;
+	}
+
+	.movie_card:hover {
+		box-shadow: 0px 0px 6px 2px #343a40;
 	}
 
 	.movie_card:hover .movie_card_details {
