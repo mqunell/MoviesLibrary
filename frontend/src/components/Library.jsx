@@ -31,7 +31,7 @@ export default class Library extends Component {
 		this.state.movies.forEach(movie => {
 			// Append series names if sorted by series
 			if (this.state.sortDropdownText === 'Series') {
-				const seriesName = movie.seriesName || 'Misc'
+				const seriesName = movie.seriesName || 'Standalone'
 	
 				if (seriesName !== currentSeries) {
 					output.push(<h1 className="series_name" key={seriesName + 'heading'}>{seriesName}</h1>)

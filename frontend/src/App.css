@@ -37,8 +37,8 @@ h1.series_name:not(:first-of-type) {
 .movie_card {
 	position: relative;
 	margin: 12px;
-	width: 300px;
-	height: 445px;
+	width: 156px;
+	height: 231.4px;
 	box-shadow: 0px 0px 6px #343a40;
 	overflow: hidden;
 }
@@ -130,8 +130,13 @@ form {
 }
 
 
-/* @media only screen and (min-width: 600px) {
+@media only screen and (min-width: 576px) {
+	.movie_card {
+		width: 300px;
+		height: 445px;
+	}
+
 	.movie_card:hover .movie_card_details {
 		top: 55%;
 	}
-} */
+}
