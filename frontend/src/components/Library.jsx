@@ -98,8 +98,8 @@ export default class Library extends Component {
 			<Modal.Body>
 				<img src={poster} alt={title + ' poster'} />
 				<div className="modal_text">
-					<p>{title}</p>
-					<p>{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
+					<p className="modal_title">{title}</p>
+					<p className="modal_series">{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
 					<div className="modal_text_row">
 						<div><i className="far fa-calendar-alt"></i><p>{year}</p></div>
 						<div><i className="fas fa-users"></i><p>{rating}</p></div>

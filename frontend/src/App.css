@@ -105,7 +105,7 @@ h1.series_name:not(:first-of-type) {
 /* Modal */
 .modal-dialog {
 	width: 332px;
-	margin: 0px auto;
+	margin: 18px auto;
 }
 
 .modal-body {
@@ -121,7 +121,12 @@ h1.series_name:not(:first-of-type) {
 	object-fit: cover;
 }
 
-.modal_text > p:first-of-type {
+.modal_title {
+	font-size: 20px;
+	margin-bottom: 0px;
+}
+
+.modal_series {
 	font-size: 18px;
 }
 
@@ -137,11 +142,6 @@ h1.series_name:not(:first-of-type) {
 
 .modal_text_row > div > i {
 	margin: 0px 4px 1rem 0px;
-}
-
-.modal_text_col {
-	display: flex;
-	flex-direction: column;
 }
 
 .modal_text_col > p:first-of-type {
