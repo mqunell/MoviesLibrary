@@ -9,6 +9,7 @@ export default class Library extends Component {
 		movies: [],
 		sortDropdownText: 'Title',
 		sortDropdownDisplayed: false,
+		modalMovie: '',
 		showModal: false
 	}
 
@@ -87,7 +88,43 @@ export default class Library extends Component {
 	}
 
 	showModal = movie => {
-		this.setState({ showModal: true })
+		this.setState({ modalMovie: movie, showModal: true })
+	}
+
+	getModalBody() {
+		const { title, year, rating, runtime, genre, director, actors, plot, poster, metacritic, seriesName, seriesIndex, formats } = this.state.modalMovie
+
+		return (
+			<Modal.Body>
+				<img src={poster} alt={title + ' poster'} />
+				<div className="modal_text">
+					<p>{title}</p>
+					<p>{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
+					<div className="modal_text_row">
+						<div><i className="far fa-calendar-alt"></i><p>{year}</p></div>
+						<div><i className="fas fa-users"></i><p>{rating}</p></div>
+						<div><i className="far fa-clock"></i><p>{runtime}</p></div>
+						<div><i className="far fa-star"></i><p>{metacritic}/100</p></div>
+					</div>
+					<div className="modal_text_col">
+						<p>Genre</p>
+						<p>{genre}</p>
+					</div>
+					<div className="modal_text_col">
+						<p>Plot</p>
+						<p>{plot}</p>
+					</div>
+					<div className="modal_text_col">
+						<p>Director</p>
+						<p>{director}</p>
+					</div>
+					<div className="modal_text_col">
+						<p>Cast</p>
+						<p>{actors}</p>
+					</div>
+				</div>
+			</Modal.Body>
+		)
 	}
 
 	render() {
@@ -107,13 +144,11 @@ export default class Library extends Component {
 			</div>
 
 			<div className="movie_card_container">
-				{ this.getAllMovies() }
+				{this.getAllMovies()}
 			</div>
 
 			<Modal show={this.state.showModal} onHide={() => {this.setState({ showModal: false })}} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-				<Modal.Body>
-					<p>Test</p>
-				</Modal.Body>
+				{this.getModalBody()}
 			</Modal>
 		</>)
 	}
