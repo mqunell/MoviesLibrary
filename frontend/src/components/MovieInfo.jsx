@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
 const MovieFormatItem = props => (
-	<div className={'format_item format_' + props.data.formatString.toLowerCase() + (props.data.hasFormat ? ' has_format' : '')}>
-		<i className={'fas fa-' + props.data.formatIcon}></i>
-		<p>{props.data.formatString}</p>
+	<div className={'format_item format_' + props.formatString.toLowerCase() + (props.hasFormat ? ' has_format' : '')}>
+		<i className={'fas fa-' + props.formatIcon}></i>
+		<p>{props.formatString}</p>
 	</div>
 )
 
@@ -43,35 +43,35 @@ export default class MovieInfo extends Component {
 				<div className="movie_info_col">
 					<p className="modal_only">Formats</p>
 					<div className="formats_container">
-						<MovieFormatItem data={{
-							formatString: 'DVD',
-							hasFormat: formats.includes('1'),
-							formatIcon: 'compact-disc'
-						}}/>
+						<MovieFormatItem
+							formatString="DVD"
+							hasFormat={formats.includes('1')}
+							formatIcon='compact-disc'
+						/>
 
-						<MovieFormatItem data={{
-							formatString: 'Bluray',
-							hasFormat: formats.includes('2'),
-							formatIcon: 'compact-disc'
-						}}/>
+						<MovieFormatItem
+							formatString="Bluray"
+							hasFormat={formats.includes('2')}
+							formatIcon="compact-disc"
+						/>
 
-						<MovieFormatItem data={{
-							formatString: '4K',
-							hasFormat: formats.includes('3'),
-							formatIcon: 'compact-disc'
-						}}/>
+						<MovieFormatItem
+							formatString="4K"
+							hasFormat={formats.includes('3')}
+							formatIcon="compact-disc"
+						/>
 
-						<MovieFormatItem data={{
-							formatString: 'Digital',
-							hasFormat: formats.includes('4'),
-							formatIcon: 'hdd'
-						}}/>
+						<MovieFormatItem
+							formatString="Digital"
+							hasFormat={formats.includes('4')}
+							formatIcon="hdd"
+						/>
 
-						<MovieFormatItem data={{
-							formatString: 'Stream',
-							hasFormat: formats.includes('5'),
-							formatIcon: 'cloud'
-						}}/>
+						<MovieFormatItem
+							formatString="Stream"
+							hasFormat={formats.includes('5')}
+							formatIcon="cloud"
+						/>
 					</div>
 				</div>
 			</div>
