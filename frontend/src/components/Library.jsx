@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import MovieCard from './MovieCard'
+import MovieInfo from './MovieInfo'
 import axios from 'axios'
 
 
@@ -26,7 +26,7 @@ export default class Library extends Component {
 			})
 	}
 
-	// Returns an array of <MovieCard> (and <h1> is sorting by series)
+	// Returns an array of <MovieInfo> (and <h1> is sorting by series)
 	getAllMovies() {
 		let output = []
 		let currentSeries = ''
@@ -43,7 +43,12 @@ export default class Library extends Component {
 			}
 
 			// Use MongoDB ID for React key
-			output.push(<MovieCard movie={movie} showModal={this.showModal} key={movie._id} />)
+			output.push(
+				<div className="movie_card" onClick={() => this.showModal(movie)} key={movie._id}>
+					<img className="movie_card_image" src={movie.poster} alt={movie.title + ' poster'}/>
+					<MovieInfo movie={movie}/>
+				</div>
+			)
 		})
 
 		return output
@@ -91,42 +96,6 @@ export default class Library extends Component {
 		this.setState({ modalMovie: movie, showModal: true })
 	}
 
-	getModalBody() {
-		const { title, year, rating, runtime, genre, director, actors, plot, poster, metacritic, seriesName, seriesIndex, formats } = this.state.modalMovie
-
-		return (
-			<Modal.Body>
-				<img src={poster} alt={title + ' poster'} />
-				<div className="modal_text">
-					<p className="modal_title">{title}</p>
-					<p className="modal_series">{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
-					<div className="modal_text_row">
-						<div><i className="far fa-calendar-alt"></i><p>{year}</p></div>
-						<div><i className="fas fa-users"></i><p>{rating}</p></div>
-						<div><i className="far fa-clock"></i><p>{runtime}</p></div>
-						<div><i className="far fa-star"></i><p>{metacritic}/100</p></div>
-					</div>
-					<div className="modal_text_col">
-						<p>Genre</p>
-						<p>{genre}</p>
-					</div>
-					<div className="modal_text_col">
-						<p>Plot</p>
-						<p>{plot}</p>
-					</div>
-					<div className="modal_text_col">
-						<p>Director</p>
-						<p>{director}</p>
-					</div>
-					<div className="modal_text_col">
-						<p>Cast</p>
-						<p>{actors}</p>
-					</div>
-				</div>
-			</Modal.Body>
-		)
-	}
-
 	render() {
 		return (<>
 			<div className="sort_container" role="group">
@@ -148,7 +117,10 @@ export default class Library extends Component {
 			</div>
 
 			<Modal show={this.state.showModal} onHide={() => {this.setState({ showModal: false })}} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
-				{this.getModalBody()}
+				<Modal.Body>
+					<img src={this.state.modalMovie.poster} alt={this.state.modalMovie.title + ' poster'} />
+					<MovieInfo movie={this.state.modalMovie} />
+				</Modal.Body>
 			</Modal>
 		</>)
 	}
