@@ -3,7 +3,9 @@ import { NavLink } from 'react-router-dom'
 import { Navbar, Nav } from 'react-bootstrap'
 
 function hideNavbar() {
-	document.getElementsByClassName('navbar-toggler')[0].click()
+	if (window.innerWidth <= 575) {
+		document.getElementsByClassName('navbar-toggler')[0].click()
+	}
 }
 
 const MyNavbar = () => (
