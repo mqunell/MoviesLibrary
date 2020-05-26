@@ -9,38 +9,38 @@ const MovieFormatItem = props => (
 
 export default class MovieInfo extends Component {
 	render() {
-		const { title, year, rating, runtime, genre, director, actors, plot, poster, metacritic, seriesName, seriesIndex, formats } = this.props.movie
+		const { title, year, rating, runtime, genre, director, actors, plot, metacritic, seriesName, seriesIndex, formats } = this.props.movie
 
 		return (
 			<div className="movie_info">
-				<div className="modal_text_col">
-					<p className="modal_title">{title}</p>
-					<p className="modal_series">{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
+				<div className="movie_info_col">
+					<p className="movie_info_title">{title}</p>
+					<p className="movie_info_series">{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
 				</div>
-				<div className="modal_text_row">
+				<div className="movie_info_row">
 					<div><i className="far fa-calendar-alt"></i><p>{year}</p></div>
 					<div><i className="fas fa-users"></i><p>{rating}</p></div>
 					<div><i className="far fa-clock"></i><p>{runtime}</p></div>
 					<div className="modal_only"><i className="far fa-star"></i><p>{metacritic}/100</p></div>
 				</div>
-				<div className="modal_text_col modal_only">
+				<div className="movie_info_col modal_only">
 					<p>Genre</p>
 					<p>{genre}</p>
 				</div>
-				<div className="modal_text_col modal_only">
+				<div className="movie_info_col modal_only">
 					<p>Plot</p>
 					<p>{plot}</p>
 				</div>
-				<div className="modal_text_col modal_only">
+				<div className="movie_info_col modal_only">
 					<p>Director</p>
 					<p>{director}</p>
 				</div>
-				<div className="modal_text_col modal_only">
+				<div className="movie_info_col modal_only">
 					<p>Cast</p>
 					<p>{actors}</p>
 				</div>
 
-				<div className="modal_text_col">
+				<div className="movie_info_col">
 					<p className="modal_only">Formats</p>
 					<div className="formats_container">
 						<MovieFormatItem data={{

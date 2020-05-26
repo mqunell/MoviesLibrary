@@ -9,7 +9,7 @@ export default class Library extends Component {
 		movies: [],
 		sortDropdownText: 'Title',
 		sortDropdownDisplayed: false,
-		modalMovie: '',
+		selectedMovie: '',
 		showModal: false
 	}
 
@@ -27,7 +27,7 @@ export default class Library extends Component {
 	}
 
 	// Returns an array of <MovieInfo> (and <h1> is sorting by series)
-	getAllMovies() {
+	getMovieCards() {
 		let output = []
 		let currentSeries = ''
 
@@ -77,7 +77,7 @@ export default class Library extends Component {
 					else return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0
 				}
 			}
-			else if (sortBy === 'Runtime') {
+			else {  // if (sortBy === 'Runtime') 
 				const art = parseInt(a.runtime)
 				const brt = parseInt(b.runtime)
 
@@ -89,11 +89,11 @@ export default class Library extends Component {
 	}
 
 	toggleSortDropdown = () => {
-		this.setState( { sortDropdownDisplayed: !this.state.sortDropdownDisplayed })
+		this.setState({ sortDropdownDisplayed: !this.state.sortDropdownDisplayed })
 	}
 
 	showModal = movie => {
-		this.setState({ modalMovie: movie, showModal: true })
+		this.setState({ selectedMovie: movie, showModal: true })
 	}
 
 	render() {
@@ -113,13 +113,13 @@ export default class Library extends Component {
 			</div>
 
 			<div className="movie_card_container">
-				{this.getAllMovies()}
+				{this.getMovieCards()}
 			</div>
 
 			<Modal show={this.state.showModal} onHide={() => {this.setState({ showModal: false })}} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
-					<img src={this.state.modalMovie.poster} alt={this.state.modalMovie.title + ' poster'} />
-					<MovieInfo movie={this.state.modalMovie} />
+					<img src={this.state.selectedMovie.poster} alt={this.state.selectedMovie.title + ' poster'} />
+					<MovieInfo movie={this.state.selectedMovie} />
 				</Modal.Body>
 			</Modal>
 		</>)
