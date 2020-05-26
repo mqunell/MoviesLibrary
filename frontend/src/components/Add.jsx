@@ -3,11 +3,11 @@ import axios from 'axios'  // Promise-based HTTP client
 
 
 const FormatCheckbox = props => (
-	<div className={'form-group col-md-' + props.data.width}>
+	<div className={'form-group col-md-' + props.width}>
 		<div className="form-check form-check-inline">
-			<input className="form-check-input" type="checkbox" id={props.data.id} value={props.data.value}
-				onChange={props.data.onChange}/>
-			<label className="form-check-label" htmlFor={props.data.id}>{props.data.text}</label>
+			<input className="form-check-input" type="checkbox" id={props.id} value={props.value}
+				onChange={props.onChange}/>
+			<label className="form-check-label" htmlFor={props.id}>{props.text}</label>
 		</div>
 	</div>
 )
@@ -121,41 +121,41 @@ export default class Add extends Component {
 				<div className="form-row">
 					<legend className="col-form-label">Format(s)</legend>
 
-					<FormatCheckbox data={{
-						width: 2,
-						id: "inputDvd",
-						value: "1",
-						onChange: this.onChangeFormats,
-						text: "DVD"
-					}}/>
-					<FormatCheckbox data={{
-						width: 2,
-						id: "inputBluray",
-						value: "2",
-						onChange: this.onChangeFormats,
-						text: "Bluray"
-					}}/>
-					<FormatCheckbox data={{
-						width: 2,
-						id: "input4k",
-						value: "3",
-						onChange: this.onChangeFormats,
-						text: "4K Bluray"
-					}}/>
-					<FormatCheckbox data={{
-						width: 2,
-						id: "inputDigital",
-						value: "4",
-						onChange: this.onChangeFormats,
-						text: "Digital"
-					}}/>
-					<FormatCheckbox data={{
-						width: 4,
-						id: "inputStreaming",
-						value: "5",
-						onChange: this.onChangeFormats,
-						text: "Streaming Service"
-					}}/>
+					<FormatCheckbox
+						id="inputDvd"
+						text="DVD"
+						value="1"
+						width="2"
+						onChange={this.onChangeFormats}
+					/>
+					<FormatCheckbox
+						id="inputBluray"
+						text="Bluray"
+						value="2"
+						width="2"
+						onChange={this.onChangeFormats}
+					/>
+					<FormatCheckbox
+						id="input4k"
+						text="4K Bluray"
+						value="3"
+						width="2"
+						onChange={this.onChangeFormats}
+					/>
+					<FormatCheckbox
+						id="inputDigital"
+						text="Digital"
+						value="4"
+						width="2"
+						onChange={this.onChangeFormats}
+					/>
+					<FormatCheckbox
+						id="inputStreaming"
+						text="Streaming Service"
+						value="5"
+						width="4"
+						onChange={this.onChangeFormats}
+					/>
 				</div>
 
 				<div className="form-row">
