@@ -118,7 +118,13 @@ export default class Library extends Component {
 
 			<Modal show={this.state.showModal} onHide={() => {this.setState({ showModal: false })}} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
-					<img src={this.state.selectedMovie.poster} alt={this.state.selectedMovie.title + ' poster'} />
+					<div className="modal_top">
+						<img src={this.state.selectedMovie.poster} alt={this.state.selectedMovie.title + ' poster'} />
+						<div>
+							<button type="button" className="btn btn-info">Edit</button>
+							<button type="button" className="btn btn-danger">Delete</button>
+						</div>
+					</div>
 					<MovieInfo movie={this.state.selectedMovie} />
 				</Modal.Body>
 			</Modal>
