@@ -16,9 +16,7 @@ const MyNavbar = () => (
 		
 		<Navbar.Collapse id="responsive-navbar-nav">
 			<Nav className="mr-auto">
-				<Nav.Link as={NavLink} to="/library" onClick={hideNavbar}>Library</Nav.Link>
 				<Nav.Link as={NavLink} to="/add" onClick={hideNavbar}>Add</Nav.Link>
-				<Nav.Link as={NavLink} to="/about" onClick={hideNavbar}>About</Nav.Link>
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
