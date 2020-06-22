@@ -9,7 +9,7 @@ import Add from './components/Add'
 
 
 function App() {
-	return (<Router>
+	return (<Router basename={'/movieslibrary'}>
 		<div className="container-fluid">
 			<Navbar />
 

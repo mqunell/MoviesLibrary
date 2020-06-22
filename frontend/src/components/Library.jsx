@@ -15,7 +15,7 @@ export default class Library extends Component {
 
 	componentDidMount() {
 		// Get movies from backend, sort by title, and set to this.state
-		axios.get('http://localhost:5050/api/movies')
+		axios.get('http://64.225.37.169:5050/api/movies')
 			.then(response => {
 				this.setState({
 					movies: response.data.sort((a, b) => (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0)
@@ -35,7 +35,7 @@ export default class Library extends Component {
 			// Append series names if sorted by series
 			if (this.state.sortDropdownText === 'Series') {
 				const seriesName = movie.seriesName || 'Standalone'
-	
+
 				if (seriesName !== currentSeries) {
 					output.push(<h1 className="series_name" key={seriesName + 'heading'}>{seriesName}</h1>)
 					currentSeries = seriesName
@@ -77,7 +77,7 @@ export default class Library extends Component {
 					else return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0
 				}
 			}
-			else {  // if (sortBy === 'Runtime') 
+			else {  // if (sortBy === 'Runtime')
 				const art = parseInt(a.runtime)
 				const brt = parseInt(b.runtime)
 
