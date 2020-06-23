@@ -19,6 +19,7 @@
 .movie_info, .movie_info_col {
 	display: flex;
 	flex-direction: column;
+	justify-content: space-between;
 }
 
 .movie_info_col > p:first-of-type {
@@ -225,10 +226,6 @@ form {
 
 	.modal_top {
 		margin: 0px 1rem 0px 0px;
-	}
-
-	.modal_top > img {
-		margin: 0px;
 	}
 
 	.modal_top > button {
