@@ -6,17 +6,22 @@ import './App.css';
 import Navbar from './components/Navbar'
 import Library from './components/Library'
 import Add from './components/Add'
+import Edit from './components/Edit'
 
-
+/**
+ * Displays the Navbar and Library automatically
+ * Routes must be added here for <Link>s throughout the project
+ */
 function App() {
-	return (<Router basename={'/movieslibrary'}>
-		<div className="container-fluid">
+	return (
+		<Router basename={'/movieslibrary'}>
 			<Navbar />
 
 			<Route path="/" exact component={Library} />
 			<Route path="/add" component={Add} />
-		</div>
-	</Router>);
+			<Route path="/edit" component={Edit} />
+		</Router>
+	);
 }
 
 export default App;
