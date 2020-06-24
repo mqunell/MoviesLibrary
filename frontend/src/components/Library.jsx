@@ -97,6 +97,23 @@ export default class Library extends Component {
 		this.setState({ selectedMovie: movie, showModal: true })
 	}
 
+	deleteMovie = ()  => {
+		// Remove the movie locally and close the modal
+		this.setState({
+			movies: this.state.movies.filter(movie => movie._id !== this.state.selectedMovie._id),
+			showModal: false
+		})
+
+		// Send the DELETE request
+		axios.delete(`http://localhost:5050/api/movies/${this.state.selectedMovie._id}`)
+			.then(response => {
+				console.log(response)  //todo
+			})
+			.catch(error => {
+				console.log(error)  //todo
+			})
+	}
+
 	render() {
 		return (<>
 			<div className="sort_container" role="group">
@@ -125,7 +142,7 @@ export default class Library extends Component {
 							<Link to={{pathname: "/edit", movie: this.state.selectedMovie}} >
 								<button type="button" className="btn btn-info">Edit</button>
 							</Link>
-							<button type="button" className="btn btn-danger">Delete</button>
+							<button type="button" className="btn btn-danger" onClick={this.deleteMovie}>Delete</button>
 						</div>
 					</div>
 					<MovieInfo movie={this.state.selectedMovie} />
