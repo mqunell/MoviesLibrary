@@ -36,9 +36,30 @@ export default class Edit extends Component {
 		const { title, seriesName, seriesIndex, year, rating, runtime, genre, metacritic, plot, director, actors, formats } = this.state
 		const movie = { title, seriesName, seriesIndex, year, rating, runtime, genre, metacritic, plot, director, actors, formats }
 
-		axios.put(`http://64.225.37.169:5050/api/movies/${this.state._id}`, movie)
-			.then(response => console.log(response))  //todo
-			.catch(error => console.log(error))  //todo
+		axios.put(`http://localhost:5050/api/movies/${this.state._id}`, movie)
+			.then(response => {
+				this.showAlert(`${response.data.title} updated`, 'success', true)
+			})
+			.catch(error => {
+				this.showAlert(`Error: ${error.reponse ? error.response.data : 'Unknown error'}`, 'danger', true)
+			})
+	}
+
+	/**
+	 * Helper function for creating Bootstrap alerts
+	 * @param {string} text The text to show in the alert
+	 * @param {string} type The type of Bootstrap alert (primary, success, danger, info, etc)
+	 * @param {boolean} autoHide Automatically hide the alert or not
+	 */
+	showAlert(text, type, autoHide) {
+		this.setState({
+			alertText: text,
+			alertClasses: `alert alert-${type} show_alert`
+		})
+
+		if (autoHide) {
+			setTimeout(() => {this.setState({ alertClasses: 'alert' })}, 3000)
+		}
 	}
 
 	render() {
@@ -156,6 +177,10 @@ export default class Edit extends Component {
 					<input type="submit" className="btn btn-primary" value="Update Movie"/>
 				</div>
 			</form>
+
+			<div id="alert" className={this.state.alertClasses} role="alert">
+				{this.state.alertText}
+			</div>
 		</div>)
 	}
 }

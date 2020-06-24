@@ -50,7 +50,7 @@ export default class Add extends Component {
 		this.showAlert('Adding movie...', 'info', false)
 
 		// Send movie data to backend
-		axios.post('http://64.225.37.169:5050/api/movies', movie)
+		axios.post('http://localhost:5050/api/movies', movie)
 			.then(response => {
 				this.showAlert(`${response.data.title} added`, 'success', true)
 			})
