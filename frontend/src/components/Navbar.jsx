@@ -11,9 +11,9 @@ function hideNavbar() {
 const MyNavbar = () => (
 	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
 		<Navbar.Brand as={NavLink} to="/">Movies Library</Navbar.Brand>
-		
+
 		<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-		
+
 		<Navbar.Collapse id="responsive-navbar-nav">
 			<Nav className="mr-auto">
 				<Nav.Link as={NavLink} to="/add" onClick={hideNavbar}>Add</Nav.Link>

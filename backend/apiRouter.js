@@ -50,6 +50,10 @@ router.route('/movies/:id').get((req, res) => {
 
 // PUT '/api/movies/:id'
 router.route('/movies/:id').put((req, res) => {
+	// req.params.id: ._id, req.body: movie
+	Movie.findByIdAndUpdate(req.params.id, req.body)
+		.then(console.log('success'))  //todo
+		.catch(err => console.log(err))  //todo
 })
 
 

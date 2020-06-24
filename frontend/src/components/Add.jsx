@@ -24,21 +24,10 @@ export default class Add extends Component {
 		alertClasses: 'alert'
 	}
 
-	onChangeTitle = (e) => {
-		this.setState({ title: e.target.value})
-	}
-
-	onChangeYear = (e) => {
-		this.setState({ year: e.target.value })
-	}
-
-	onChangeSeriesName = (e) => {
-		this.setState({ seriesName: e.target.value })
-	}
-
-	onChangeSeriesIndex = (e) => {
-		this.setState({ seriesIndex: e.target.value })
-	}
+	onChangeTitle = (e) => this.setState({ title: e.target.value})
+	onChangeYear = (e) => this.setState({ year: e.target.value })
+	onChangeSeriesName = (e) => this.setState({ seriesName: e.target.value })
+	onChangeSeriesIndex = (e) => this.setState({ seriesIndex: e.target.value })
 
 	onChangeFormats = (e) => {
 		const formatNum = e.target.value
@@ -88,7 +77,7 @@ export default class Add extends Component {
 	}
 
 	render() {
-		return (<>
+		return (<div className="container-xl">
 			<form onSubmit={this.onSubmit}>
 				<div className="form-row">
 					<div className="form-group col-md-8">
@@ -166,6 +155,6 @@ export default class Add extends Component {
 			<div id="alert" className={this.state.alertClasses} role="alert">
 				{this.state.alertText}
 			</div>
-		</>)
+		</div>)
 	}
 }

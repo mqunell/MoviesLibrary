@@ -15,7 +15,7 @@ export default class MovieInfo extends Component {
 			<div className="movie_info">
 				<div className="movie_info_col">
 					<p className="movie_info_title">{title}</p>
-					<p className="movie_info_series">{(seriesName !== null ? seriesName + ' #' + seriesIndex : '')}</p>
+					<p className="movie_info_series">{(seriesName !== null) ? seriesName + ' #' + seriesIndex : ''}</p>
 				</div>
 				<div className="movie_info_row">
 					<div><i className="far fa-calendar-alt"></i><p>{year}</p></div>
