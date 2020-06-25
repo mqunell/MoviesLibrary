@@ -134,7 +134,7 @@ export default class Library extends Component {
 				{this.getMovieCards()}
 			</div>
 
-			<Modal show={this.state.showModal} onHide={() => {this.setState({ showModal: false })}} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+			<Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
 				<Modal.Body>
 					<div className="modal_top">
 						<img src={this.state.selectedMovie.poster} alt={this.state.selectedMovie.title + ' poster'} />

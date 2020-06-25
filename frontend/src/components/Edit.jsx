@@ -7,17 +7,12 @@ export default class Edit extends Component {
 		this.state = props.location.movie
 	}
 
-	onChangeTitle = (e) => this.setState({ title: e.target.value })
-	onChangeSeriesName = (e) => this.setState({ seriesName: e.target.value || null })
-	onChangeSeriesIndex = (e) => this.setState({ seriesIndex: e.target.value || null })
-	onChangeYear = (e) => this.setState({ year: e.target.value })
-	onChangeRating = (e) => this.setState({ rating: e.target.value })
-	onChangeRuntime = (e) => this.setState({ runtime: e.target.value })
-	onChangeGenre = (e) => this.setState({ genre: e.target.value })
-	onChangeMetacritic = (e) => this.setState({ metacritic: e.target.value })
-	onChangePlot = (e) => this.setState({ plot: e.target.value })
-	onChangeDirector = (e) => this.setState({ director: e.target.value })
-	onChangeActors = (e) => this.setState({ actors: e.target.value })
+	onChangeGeneric = (e) => {
+		const key = e.target.id.charAt(5).toLowerCase() + e.target.id.substr(6)
+		const val = e.target.value
+
+		this.setState({ [key]: val })
+	}
 
 	onChangeFormats = (e) => {
 		const formatNum = e.target.value
@@ -70,18 +65,18 @@ export default class Edit extends Component {
 			<form onSubmit={this.onSubmit}>
 				<div className="form-group">
 					<label htmlFor="inputTitle">Title</label>
-					<input type="text" className="form-control" id="inputTitle" defaultValue={title} onChange={this.onChangeTitle}/>
+					<input type="text" className="form-control" id="inputTitle" defaultValue={title} onChange={this.onChangeGeneric}/>
 				</div>
 
 				<div className="form-row">
 					<div className="form-group col-md-8">
 						<label htmlFor="inputSeriesName">Series Name</label>
-						<input type="text" className="form-control" id="inputSeriesName" defaultValue={seriesName} onChange={this.onChangeSeriesName}/>
+						<input type="text" className="form-control" id="inputSeriesName" defaultValue={seriesName} onChange={this.onChangeGeneric}/>
 					</div>
 
 					<div className="form-group col-md-4">
 						<label htmlFor="inputSeriesIndex">Series Index</label>
-						<input type="text" className="form-control" id="inputSeriesIndex" defaultValue={seriesIndex} onChange={this.onChangeSeriesIndex}/>
+						<input type="text" className="form-control" id="inputSeriesIndex" defaultValue={seriesIndex} onChange={this.onChangeGeneric}/>
 					</div>
 				</div>
 
@@ -89,12 +84,12 @@ export default class Edit extends Component {
 					<div className="form-row">
 						<div className="form-group col-md-4">
 							<label htmlFor="inputYear">Release Year</label>
-							<input type="text" className="form-control" id="inputYear" defaultValue={year} onChange={this.onChangeYear}/>
+							<input type="text" className="form-control" id="inputYear" defaultValue={year} onChange={this.onChangeGeneric}/>
 						</div>
 
 						<div className="form-group col-md-4">
 							<label htmlFor="selectRating">Rating</label>
-							<select className="custom-select" defaultValue={rating} onChange={this.onChangeRating}>
+							<select className="custom-select" defaultValue={rating} onChange={this.onChangeGeneric}>
 								<option>Select...</option>
 								<option value="G">G</option>
 								<option value="PG">PG</option>
@@ -106,35 +101,35 @@ export default class Edit extends Component {
 
 						<div className="form-group col-md-4">
 							<label htmlFor="inputRuntime">Runtime</label>
-							<input type="text" className="form-control" id="inputRuntime" defaultValue={runtime} onChange={this.onChangeRuntime}/>
+							<input type="text" className="form-control" id="inputRuntime" defaultValue={runtime} onChange={this.onChangeGeneric}/>
 						</div>
 					</div>
 
 					<div className="form-row">
 						<div className="form-group col-md-8">
 							<label htmlFor="inputGenre">Genre</label>
-							<input type="text" className="form-control" id="inputGenre" defaultValue={genre} onChange={this.onChangeGenre}/>
+							<input type="text" className="form-control" id="inputGenre" defaultValue={genre} onChange={this.onChangeGeneric}/>
 						</div>
 
 						<div className="form-group col-md-4">
 							<label htmlFor="inputMetacritic">Metacritic Score</label>
-							<input type="text" className="form-control" id="inputMetacritic" defaultValue={metacritic} onChange={this.onChangeMetacritic}/>
+							<input type="text" className="form-control" id="inputMetacritic" defaultValue={metacritic} onChange={this.onChangeGeneric}/>
 						</div>
 					</div>
 
 					<div className="form-group">
 						<label htmlFor="textareaPlot">Plot</label>
-						<textarea className="form-control" id="textareaPlot" rows="4" defaultValue={plot} onChange={this.onChangePlot}/>
+						<textarea className="form-control" id="textareaPlot" rows="4" defaultValue={plot} onChange={this.onChangeGeneric}/>
 					</div>
 
 					<div className="form-group">
 						<label htmlFor="inputDirector">Director(s)</label>
-						<input type="text" className="form-control" id="inputDirector" defaultValue={director} onChange={this.onChangeDirector}/>
+						<input type="text" className="form-control" id="inputDirector" defaultValue={director} onChange={this.onChangeGeneric}/>
 					</div>
 
 					<div className="form-group">
 						<label htmlFor="inputActors">Main Actor(s)</label>
-						<input type="text" className="form-control" id="inputActors" defaultValue={actors} onChange={this.onChangeActors}/>
+						<input type="text" className="form-control" id="inputActors" defaultValue={actors} onChange={this.onChangeGeneric}/>
 					</div>
 				</div>
 

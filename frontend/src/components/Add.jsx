@@ -17,8 +17,8 @@ export default class Add extends Component {
 	state = {
 		title: '',
 		year: '',
-		seriesName: null,
-		seriesIndex: null,
+		seriesName: '',
+		seriesIndex: '',
 		formats: '',
 		alertText: '',
 		alertClasses: 'alert'
