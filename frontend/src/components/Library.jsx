@@ -68,13 +68,13 @@ export default class Library extends Component {
 				const bsn = b.seriesName
 
 				// Both have series; same series; different series
-				if (asn !== null && bsn !== null) {
+				if (asn !== '' && bsn !== '') {
 					if (asn === bsn) return (a.seriesIndex < b.seriesIndex) ? -1 : 1
 					else return (asn < bsn) ? -1 : 1
 				}
 				// Both don't have series; one has series; neither has series
 				else {
-					if (asn !== null || bsn !== null) return (asn !== null) ? -1 : 1
+					if (asn !== '' || bsn !== '') return (asn !== '') ? -1 : 1
 					else return (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0
 				}
 			}
