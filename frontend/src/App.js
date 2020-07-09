@@ -1,27 +1,30 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react'
+import { Route, Switch, Redirect } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.css'
-import './App.css';
+import './App.css'
 
 import Navbar from './components/Navbar'
 import Library from './components/Library'
 import Add from './components/Add'
 import Edit from './components/Edit'
 
+
 /**
- * Displays the Navbar and Library automatically
- * Routes must be added here for <Link>s throughout the project
+ * Displays the Navbar and Library (default)
+ * <Route>s must be added here for <Link>s throughout the project
  */
 function App() {
-	return (
-		<Router basename={'/movieslibrary'}>
-			<Navbar />
+	return (<>
+		<Navbar />
 
-			<Route path="/" exact component={Library} />
+		<Switch>
+			<Route exact path="/" component={Library} />
 			<Route path="/add" component={Add} />
 			<Route path="/edit" component={Edit} />
-		</Router>
-	);
+			<Redirect to="/" />
+		</Switch>
+	</>);
 }
+
 
 export default App;
