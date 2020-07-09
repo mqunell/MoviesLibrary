@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const dotenv = require('dotenv').config();  // Parses environment variables in .env file
+const dotenv = require('dotenv').config()  // Parses environment variables in .env file
 const axios = require('axios')  // Promise-based HTTP client
 let Movie = require('./models/movie')
 
@@ -26,7 +26,7 @@ router.route('/movies').post((req, res) => {
 				}
 			}
 			else {
-				res.status(omdbResponse.status).json('Unknown OMDb error')
+				res.status(omdbResponse.status).send('Unknown OMDb error')
 			}
 		})
 })
@@ -35,8 +35,8 @@ router.route('/movies').post((req, res) => {
 // GET '/api/movies' - Gets all movies
 router.route('/movies').get((req, res) => {
 	Movie.find()
-		.then(movies => res.json(movies))
-		.catch(err => res.status(400).json('Error: ' + err))
+		.then(movies => res.cookie('cookieName', 'cookieValue').json(movies))  // Test cookie
+		.catch(err => res.status(400).send('Error: ' + err))
 })
 
 
@@ -44,7 +44,7 @@ router.route('/movies').get((req, res) => {
 router.route('/movies/:id').get((req, res) => {
 	Movie.findById(req.params.id)
 		.then(movie => res.json(movie))
-		.catch(err => res.status(400).json('Error: ' + err))
+		.catch(err => res.status(400).send('Error: ' + err))
 })
 
 
@@ -55,7 +55,7 @@ router.route('/movies/:id').put((req, res) => {
 
 	Movie.findByIdAndUpdate(movieId, movie)
 		.then(() => res.json(movie))
-		.catch(err => res.status(400).json('Error: ' + err))
+		.catch(err => res.status(400).send('Error: ' + err))
 })
 
 
@@ -63,7 +63,7 @@ router.route('/movies/:id').put((req, res) => {
 router.route('/movies').delete((req, res) => {
 	Movie.deleteMany({})
 		.then(output => res.json(output))
-		.catch(err => res.startus(400).json('Error: ' + err))
+		.catch(err => res.startus(400).send('Error: ' + err))
 })
 
 
@@ -71,7 +71,7 @@ router.route('/movies').delete((req, res) => {
 router.route('/movies/:id').delete((req, res) => {
 	Movie.findByIdAndDelete(req.params.id)
 		.then(movie => res.json(movie))
-		.catch(err => res.status(400).json('Error: ' + err))
+		.catch(err => res.status(400).send('Error: ' + err))
 })
 
 
@@ -111,8 +111,8 @@ function addMovie(newMovie, res) {
 		.then(results => {
 			if (results.length == 0) {
 				newMovie.save()
-					.then(() => res.send(newMovie))
-					.catch(err => res.status(400).json('Database error: ' + err))
+					.then(() => res.json(newMovie))
+					.catch(err => res.status(400).send('Database error: ' + err))
 			}
 			else {
 				res.status(400).send(`${newMovie.title} is already added`)
