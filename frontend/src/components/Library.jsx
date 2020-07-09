@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"
 import MovieInfo from './MovieInfo'
 import axios from 'axios'
 
@@ -97,7 +97,7 @@ export default class Library extends Component {
 		this.setState({ selectedMovie: movie, showModal: true })
 	}
 
-	deleteMovie = ()  => {
+	deleteMovie = () => {
 		// Remove the movie locally and close the modal
 		this.setState({
 			movies: this.state.movies.filter(movie => movie._id !== this.state.selectedMovie._id),
