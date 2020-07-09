@@ -1,3 +1,71 @@
+.c-h {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
+/* --- Account --- */
+div#account {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 50px 300px;
+	width: 100%;
+	max-width: 400px;
+	margin: 40px auto;
+	background-color: white;
+	border: 1px solid #333333;
+	border-radius: 6px;
+	box-shadow: 0px 0px 8px #888888;
+	overflow: hidden;
+}
+
+div#account p {
+	margin-bottom: 0px;
+}
+
+div#form_container {
+	grid-column: 1/3;
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+	position: relative;
+	left: 0%;
+	width: 200%;
+	height: 100%;
+	transition: 0.5s;
+}
+
+.form_container_rotated {
+	left: -100% !important;
+}
+
+div#create_tab, div#signin_tab {
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+.inactive_tab {
+	background-color: #cccccc;
+}
+
+.inactive_tab:hover {
+	background-color: #dddddd;
+}
+
+div#form_container form {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-evenly;
+	width: 80%;
+	height: 100%;
+}
+
+div#form_container form button, div#form_container form p {
+	width: max-content;
+	margin: 0px auto;
+}
+
+
 /* --- Library --- */
 /* Sort */
 .sort_container {
@@ -113,9 +181,6 @@ h1.series_name:not(:first-of-type) {
 /* MovieInfo (card version) */
 .movie_card > .movie_info {
 	position: absolute;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	top: 100%;
 	width: 100%;
 	height: 45%;

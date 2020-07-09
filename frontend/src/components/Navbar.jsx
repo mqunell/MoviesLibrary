@@ -8,7 +8,7 @@ function hideNavbar() {
 	}
 }
 
-const MyNavbar = () => (
+const MyNavbar = ({ signedIn }) => (
 	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
 		<Navbar.Brand as={NavLink} to="/">Movies Library</Navbar.Brand>
 
@@ -16,10 +16,10 @@ const MyNavbar = () => (
 
 		<Navbar.Collapse id="responsive-navbar-nav">
 			<Nav className="mr-auto">
-				<Nav.Link as={NavLink} to="/add" onClick={hideNavbar}>Add</Nav.Link>
+				<Nav.Link as={NavLink} to="/add" style={(!signedIn) ? { display: 'none' } : {}} onClick={hideNavbar}>Add</Nav.Link>
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
 )
 
-export default MyNavbar;
+export default MyNavbar
