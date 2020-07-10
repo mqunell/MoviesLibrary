@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Alert from './Alert.js'
+
 
 export default class Edit extends Component {
 	constructor(props) {
@@ -33,28 +35,11 @@ export default class Edit extends Component {
 
 		axios.put(`http://localhost:5050/api/movies/${this.state._id}`, movie)
 			.then(response => {
-				this.showAlert(`${response.data.title} updated`, 'success', true)
+				Alert.get().show(`${response.data.title} updated`, 'success', true)
 			})
 			.catch(error => {
-				this.showAlert(`Error: ${error.reponse ? error.response.data : 'Unknown error'}`, 'danger', true)
+				Alert.get().show(`Error: ${error.reponse ? error.response.data : 'Unknown error'}`, 'danger', true)
 			})
-	}
-
-	/**
-	 * Helper function for creating Bootstrap alerts
-	 * @param {string} text The text to show in the alert
-	 * @param {string} type The type of Bootstrap alert (primary, success, danger, info, etc)
-	 * @param {boolean} autoHide Automatically hide the alert or not
-	 */
-	showAlert(text, type, autoHide) {
-		this.setState({
-			alertText: text,
-			alertClasses: `alert alert-${type} show_alert`
-		})
-
-		if (autoHide) {
-			setTimeout(() => {this.setState({ alertClasses: 'alert' })}, 3000)
-		}
 	}
 
 	render() {
@@ -172,10 +157,6 @@ export default class Edit extends Component {
 					<input type="submit" className="btn btn-primary" value="Update Movie"/>
 				</div>
 			</form>
-
-			<div id="alert" className={this.state.alertClasses} role="alert">
-				{this.state.alertText}
-			</div>
 		</div>)
 	}
 }

@@ -40,6 +40,10 @@ class App extends Component {
 				<Route path="/edit" component={Edit} />
 				<Redirect to="/" />
 			</Switch>
+
+			<div id="alert" className={this.state.alertClasses} role="alert">
+				{this.state.alertText}
+			</div>
 		</>)
 	}
 }

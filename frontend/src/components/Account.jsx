@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import Alert from './Alert.js'
 
 
 export default class Account extends Component {
@@ -34,11 +35,14 @@ export default class Account extends Component {
 			const newUser = { 'email': email, 'password': pass1}
 
 			axios.post('http://localhost:5050/api/users/create', newUser)
-				.then(response => this.props.toggleSignedIn())
-				.catch(error => this.setOverallStatus(error.response.data))
+				.then(response => {
+					Alert.get().show('Account created', 'success', true)
+					this.props.toggleSignedIn()
+				})
+				.catch(error => Alert.get().show(error.response.data, 'danger', true))
 		}
 		else {
-			this.setOverallStatus('client-side passwords don\'t match')
+			Alert.get().show('Passwords don\'t match', 'danger', true)
 		}
 	}
 
@@ -54,13 +58,11 @@ export default class Account extends Component {
 		const loginUser = { email, password }
 
 		axios.post('http://localhost:5050/api/users/login', loginUser)
-			.then(response => this.props.toggleSignedIn())
-			.catch(error => this.setOverallStatus(error.response.data))
-	}
-
-	// temp helper method (todo: implement alerts)
-	setOverallStatus(text) {
-		this.setState({ overallStatus: text })
+			.then(response => {
+				Alert.get().show('Logging in', 'success', true)
+				this.props.toggleSignedIn()
+			})
+			.catch(error => Alert.get().show(error.response.data, 'danger', true))
 	}
 
 	render() {
@@ -95,7 +97,6 @@ export default class Account extends Component {
 			</div>
 
 			<p style={{ textAlign: 'center', color: 'red' }}>Note: Passwords are *not* stored securely yet!</p>
-			<p style={{ textAlign: 'center', color: 'blue' }}>(popup alert text): {this.state.overallStatus}</p>
 		</>)
 	}
 }

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'  // Promise-based HTTP client
+import Alert from './Alert.js'
 
 
 const FormatCheckbox = props => (
@@ -47,33 +48,16 @@ export default class Add extends Component {
 		const { title, year, seriesName, seriesIndex, formats } = this.state
 		const movie = { title, year, seriesName, seriesIndex, formats }
 
-		this.showAlert('Adding movie...', 'info', false)
+		Alert.get().show('Adding movie...', 'info', false)
 
 		// Send movie data to backend
 		axios.post('http://localhost:5050/api/movies', movie)
 			.then(response => {
-				this.showAlert(`${response.data.title} added`, 'success', true)
+				Alert.get().show(`${response.data.title} added`, 'success', true)
 			})
 			.catch(error => {
-				this.showAlert(`Error: ${error.response ? error.response.data : 'Could not connect to server'}`, 'danger', true)
+				Alert.get().show(`Error: ${error.response ? error.response.data : 'Could not connect to server'}`, 'danger', true)
 			})
-	}
-
-	/**
-	 * Helper function for creating Bootstrap alerts
-	 * @param {string} text The text to show in the alert
-	 * @param {string} type The type of Bootstrap alert (primary, success, danger, info, etc)
-	 * @param {boolean} autoHide Automatically hide the alert or not
-	 */
-	showAlert(text, type, autoHide) {
-		this.setState({
-			alertText: text,
-			alertClasses: `alert alert-${type} show_alert`
-		})
-
-		if (autoHide) {
-			setTimeout(() => {this.setState({ alertClasses: 'alert' })}, 3000)
-		}
 	}
 
 	render() {
@@ -151,10 +135,6 @@ export default class Add extends Component {
 					<input type="submit" className="btn btn-primary" value="Fetch Movie Data"/>
 				</div>
 			</form>
-
-			<div id="alert" className={this.state.alertClasses} role="alert">
-				{this.state.alertText}
-			</div>
 		</div>)
 	}
 }
