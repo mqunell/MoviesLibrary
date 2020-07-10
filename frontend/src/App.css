@@ -39,7 +39,7 @@ div#form_container {
 	left: -100% !important;
 }
 
-div#create_tab, div#signin_tab {
+div#create_tab, div#login_tab {
 	cursor: pointer;
 	transition: 0.5s;
 }

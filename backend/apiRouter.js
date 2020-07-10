@@ -2,6 +2,59 @@ const router = require('express').Router()
 const dotenv = require('dotenv').config()  // Parses environment variables in .env file
 const axios = require('axios')  // Promise-based HTTP client
 let Movie = require('./models/movie')
+let User = require('./models/user')
+
+
+/**
+ * POST '/api/users/create' - Creates a new user
+ */
+router.route('/users/create').post((req, res) => {
+	console.log(req.body)
+	const { email, password } = req.body
+
+	// Attempt to find existing email
+	User.find({ email })
+		.then(results => {
+			// If not found, create account
+			if (results.length === 0) {
+				const newUser = new User({ email, password })
+				newUser.save()
+					.then(() => res.json(newUser))
+					.catch(err => res.status(400).send('Database insert error: ' + err))
+			}
+			else {
+				res.status(409).send(`${email} is already taken`)
+			}
+		})
+		.catch(err => res.status(400).send('Database find error: ' + err))
+})
+
+
+/**
+ * POST '/api/users/login' - Verifies a user's credentials
+ */
+router.route('/users/login').post((req, res) => {
+	console.log(req.body)
+	const { email, password } = req.body
+
+	// Attempt to find existing email
+	User.find({ email })
+		.then(results => {
+			// If found, verify password
+			if (results.length === 1) {  // Never > 1 because of unique email addresses
+				if (password === results[0].password) {
+					res.status(200).send('Password match')
+				}
+				else {
+					res.status(400).send('Password incorrect')
+				}
+			}
+			else {
+				res.status(400).send('Email not found')
+			}
+		})
+		.catch(err => res.status(400).send('Database find error: ' + err))
+})
 
 
 /**
@@ -109,16 +162,16 @@ function createMovie(userData, omdbData) {
 function addMovie(newMovie, res) {
 	Movie.find({ title: newMovie.title })
 		.then(results => {
-			if (results.length == 0) {
+			if (results.length === 0) {
 				newMovie.save()
 					.then(() => res.json(newMovie))
-					.catch(err => res.status(400).send('Database error: ' + err))
+					.catch(err => res.status(400).send('Database insert error: ' + err))
 			}
 			else {
 				res.status(400).send(`${newMovie.title} is already added`)
 			}
 		})
-		.catch(error => res.status(400).send('Error while checking database: ' + err))
+		.catch(err => res.status(400).send('Database find error: ' + err))
 }
 
 
