@@ -28,7 +28,7 @@ class App extends Component {
 
 	render() {
 		return (<>
-			<Navbar signedIn={this.state.signedIn} />
+			<Navbar signedIn={this.state.signedIn} toggleSignedIn={this.toggleSignedIn} />
 
 			<Switch>
 				<Route exact path="/" render={() => (

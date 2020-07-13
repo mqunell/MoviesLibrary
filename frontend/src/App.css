@@ -5,12 +5,22 @@
 }
 
 
+/* --- Navbar --- */
+nav.false button.navbar-toggler, nav.false div.navbar-nav {  /* Signed out */
+	display: none;
+}
+
+.navbar-nav a:last-child {
+	color: rgba(255, 255, 255, 0.5) !important;  /* Override "active" color */
+}
+
+
 /* --- Account --- */
 div#account {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
 	grid-template-rows: 50px 300px;
-	width: 100%;
+	width: 90%;
 	max-width: 400px;
 	margin: 40px auto;
 	background-color: white;
@@ -267,6 +277,14 @@ form {
 
 
 @media only screen and (min-width: 576px) {
+	.navbar-nav {
+		width: 100%;
+	}
+
+	.navbar-nav a:last-child {
+		margin-left: auto;
+	}
+
 	.movie_card {
 		width: 300px;
 		height: 445px;

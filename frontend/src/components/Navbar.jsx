@@ -8,15 +8,20 @@ function hideNavbar() {
 	}
 }
 
-const MyNavbar = ({ signedIn }) => (
-	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+const MyNavbar = ({ signedIn, toggleSignedIn }) => (
+	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className={signedIn.toString()}>
 		<Navbar.Brand as={NavLink} to="/">Movies Library</Navbar.Brand>
 
 		<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 
 		<Navbar.Collapse id="responsive-navbar-nav">
-			<Nav className="mr-auto">
-				<Nav.Link as={NavLink} to="/add" style={(!signedIn) ? { display: 'none' } : {}} onClick={hideNavbar}>Add</Nav.Link>
+			<Nav>
+				<Nav.Link as={NavLink} to="/add"onClick={hideNavbar}>Add</Nav.Link>
+
+				<Nav.Link as={NavLink} to="/"onClick={() => {
+					hideNavbar()
+					toggleSignedIn()
+				}}>Log Out</Nav.Link>
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
