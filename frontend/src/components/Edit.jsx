@@ -10,8 +10,10 @@ export default class Edit extends Component {
 	}
 
 	onChangeGeneric = (e) => {
-		const key = e.target.id.charAt(5).toLowerCase() + e.target.id.substr(6)
-		const val = e.target.value
+		const element = e.target
+
+		const key = element.id.substr(element.id.indexOf('_') + 1)
+		const val = element.value
 
 		this.setState({ [key]: val })
 	}
@@ -49,32 +51,32 @@ export default class Edit extends Component {
 		return (<div className="container-xl">
 			<form onSubmit={this.onSubmit}>
 				<div className="form-group">
-					<label htmlFor="inputTitle">Title</label>
-					<input type="text" className="form-control" id="inputTitle" defaultValue={title} onChange={this.onChangeGeneric}/>
+					<label htmlFor="input_title">Title</label>
+					<input type="text" className="form-control" id="input_title" defaultValue={title} onChange={this.onChangeGeneric}/>
 				</div>
 
 				<div className="form-row">
 					<div className="form-group col-md-8">
-						<label htmlFor="inputSeriesName">Series Name</label>
-						<input type="text" className="form-control" id="inputSeriesName" defaultValue={seriesName} onChange={this.onChangeGeneric}/>
+						<label htmlFor="input_seriesName">Series Name</label>
+						<input type="text" className="form-control" id="input_seriesName" defaultValue={seriesName} onChange={this.onChangeGeneric}/>
 					</div>
 
 					<div className="form-group col-md-4">
-						<label htmlFor="inputSeriesIndex">Series Index</label>
-						<input type="text" className="form-control" id="inputSeriesIndex" defaultValue={seriesIndex} onChange={this.onChangeGeneric}/>
+						<label htmlFor="input_seriesIndex">Series Index</label>
+						<input type="text" className="form-control" id="input_seriesIndex" defaultValue={seriesIndex} onChange={this.onChangeGeneric}/>
 					</div>
 				</div>
 
 				<div>
 					<div className="form-row">
 						<div className="form-group col-md-4">
-							<label htmlFor="inputYear">Release Year</label>
-							<input type="text" className="form-control" id="inputYear" defaultValue={year} onChange={this.onChangeGeneric}/>
+							<label htmlFor="input_year">Release Year</label>
+							<input type="text" className="form-control" id="input_year" defaultValue={year} onChange={this.onChangeGeneric}/>
 						</div>
 
 						<div className="form-group col-md-4">
-							<label htmlFor="selectRating">Rating</label>
-							<select className="custom-select" defaultValue={rating} onChange={this.onChangeGeneric}>
+							<label htmlFor="select_rating">Rating</label>
+							<select className="custom-select" id="select_rating" defaultValue={rating} onChange={this.onChangeGeneric}>
 								<option>Select...</option>
 								<option value="G">G</option>
 								<option value="PG">PG</option>
@@ -85,36 +87,36 @@ export default class Edit extends Component {
 						</div>
 
 						<div className="form-group col-md-4">
-							<label htmlFor="inputRuntime">Runtime</label>
-							<input type="text" className="form-control" id="inputRuntime" defaultValue={runtime} onChange={this.onChangeGeneric}/>
+							<label htmlFor="input_runtime">Runtime</label>
+							<input type="text" className="form-control" id="input_runtime" defaultValue={runtime} onChange={this.onChangeGeneric}/>
 						</div>
 					</div>
 
 					<div className="form-row">
 						<div className="form-group col-md-8">
-							<label htmlFor="inputGenre">Genre</label>
-							<input type="text" className="form-control" id="inputGenre" defaultValue={genre} onChange={this.onChangeGeneric}/>
+							<label htmlFor="input_genre">Genre</label>
+							<input type="text" className="form-control" id="input_genre" defaultValue={genre} onChange={this.onChangeGeneric}/>
 						</div>
 
 						<div className="form-group col-md-4">
-							<label htmlFor="inputMetacritic">Metacritic Score</label>
-							<input type="text" className="form-control" id="inputMetacritic" defaultValue={metacritic} onChange={this.onChangeGeneric}/>
+							<label htmlFor="input_metacritic">Metacritic Score</label>
+							<input type="text" className="form-control" id="input_metacritic" defaultValue={metacritic} onChange={this.onChangeGeneric}/>
 						</div>
 					</div>
 
 					<div className="form-group">
-						<label htmlFor="textareaPlot">Plot</label>
-						<textarea className="form-control" id="textareaPlot" rows="4" defaultValue={plot} onChange={this.onChangeGeneric}/>
+						<label htmlFor="textarea_plot">Plot</label>
+						<textarea className="form-control" id="textarea_plot" rows="4" defaultValue={plot} onChange={this.onChangeGeneric}/>
 					</div>
 
 					<div className="form-group">
-						<label htmlFor="inputDirector">Director(s)</label>
-						<input type="text" className="form-control" id="inputDirector" defaultValue={director} onChange={this.onChangeGeneric}/>
+						<label htmlFor="input_director">Director(s)</label>
+						<input type="text" className="form-control" id="input_director" defaultValue={director} onChange={this.onChangeGeneric}/>
 					</div>
 
 					<div className="form-group">
-						<label htmlFor="inputActors">Main Actor(s)</label>
-						<input type="text" className="form-control" id="inputActors" defaultValue={actors} onChange={this.onChangeGeneric}/>
+						<label htmlFor="input_actors">Main Actor(s)</label>
+						<input type="text" className="form-control" id="input_actors" defaultValue={actors} onChange={this.onChangeGeneric}/>
 					</div>
 				</div>
 
@@ -123,32 +125,32 @@ export default class Edit extends Component {
 
 					<div className="form-group col-md-2">
 						<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputDvd" value="1" defaultChecked={formats.includes('1')} onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputDvd">DVD</label>
+							<input className="form-check-input" type="checkbox" id="input_dvd" value="1" defaultChecked={formats.includes('1')} onChange={this.onChangeFormats}/>
+							<label className="form-check-label" htmlFor="input_dvd">DVD</label>
 						</div>
 					</div>
 					<div className="form-group col-md-2">
 							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputBluray" value="2" defaultChecked={formats.includes('2')} onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputBluray">Bluray</label>
+							<input className="form-check-input" type="checkbox" id="input_bluray" value="2" defaultChecked={formats.includes('2')} onChange={this.onChangeFormats}/>
+							<label className="form-check-label" htmlFor="input_bluray">Bluray</label>
 						</div>
 					</div>
 					<div className="form-group col-md-2">
 							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="input4k" value="3" defaultChecked={formats.includes('3')} onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="input4k">4K Bluray</label>
+							<input className="form-check-input" type="checkbox" id="input_4k" value="3" defaultChecked={formats.includes('3')} onChange={this.onChangeFormats}/>
+							<label className="form-check-label" htmlFor="input_4k">4K Bluray</label>
 						</div>
 					</div>
 					<div className="form-group col-md-2">
 							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputDigital" value="4" defaultChecked={formats.includes('4')} onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputDigital">Digital</label>
+							<input className="form-check-input" type="checkbox" id="input_digital" value="4" defaultChecked={formats.includes('4')} onChange={this.onChangeFormats}/>
+							<label className="form-check-label" htmlFor="input_digital">Digital</label>
 						</div>
 					</div>
 					<div className="form-group col-md-2">
 							<div className="form-check form-check-inline">
-							<input className="form-check-input" type="checkbox" id="inputStreaming" value="5" defaultChecked={formats.includes('5')} onChange={this.onChangeFormats}/>
-							<label className="form-check-label" htmlFor="inputStreaming">Streaming</label>
+							<input className="form-check-input" type="checkbox" id="input_streaming" value="5" defaultChecked={formats.includes('5')} onChange={this.onChangeFormats}/>
+							<label className="form-check-label" htmlFor="input_streaming">Streaming</label>
 						</div>
 					</div>
 				</div>

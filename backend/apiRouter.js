@@ -9,7 +9,6 @@ let User = require('./models/user')
  * POST '/api/users/create' - Creates a new user
  */
 router.route('/users/create').post((req, res) => {
-	console.log(req.body)
 	const { email, password } = req.body
 
 	// Attempt to find existing email
@@ -34,7 +33,6 @@ router.route('/users/create').post((req, res) => {
  * POST '/api/users/login' - Verifies a user's credentials
  */
 router.route('/users/login').post((req, res) => {
-	console.log(req.body)
 	const { email, password } = req.body
 
 	// Attempt to find existing email
