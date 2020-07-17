@@ -86,7 +86,7 @@ router.route('/movies').post((req, res) => {
 // GET '/api/movies' - Gets all movies
 router.route('/movies').get((req, res) => {
 	Movie.find()
-		.then(movies => res.cookie('cookieName', 'cookieValue').json(movies))  // Test cookie
+		.then(movies => res.json(movies))
 		.catch(err => res.status(400).send('Error: ' + err))
 })
 

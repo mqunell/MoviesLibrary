@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from "react-router-dom"
+import Cookies from 'universal-cookie'
 
 // CSS
 import 'bootstrap/dist/css/bootstrap.css'
@@ -22,19 +23,25 @@ class App extends Component {
 		signedIn: false
 	}
 
-	toggleSignedIn = () => {
-		this.setState({ signedIn: !this.state.signedIn })
+	componentDidMount() {
+		this.cookies = new Cookies()
+		this.setSignedIn(this.cookies.get('signedIn') === 'true')
+	}
+
+	setSignedIn = (signedIn) => {
+		this.cookies.set('signedIn', signedIn.toString(), { path: '/' })
+		this.setState({ signedIn })
 	}
 
 	render() {
 		return (<>
-			<Navbar signedIn={this.state.signedIn} toggleSignedIn={this.toggleSignedIn} />
+			<Navbar signedIn={this.state.signedIn} setSignedIn={this.setSignedIn} />
 
 			<Switch>
 				<Route exact path="/" render={() => (
-					(this.state.signedIn) ? <Library /> : <Account toggleSignedIn={this.toggleSignedIn} />
+					(this.state.signedIn) ? <Library /> : <Account setSignedIn={this.setSignedIn} />
 				)} />
-				<Route path="/account" render={() => <Account toggleSignedIn={this.toggleSignedIn} />} />
+				<Route path="/account" render={() => <Account setSignedIn={this.setSignedIn} />} />
 				<Route path="/library" component={Library} />
 				<Route path="/add" component={Add} />
 				<Route path="/edit" component={Edit} />

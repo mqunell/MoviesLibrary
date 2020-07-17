@@ -8,7 +8,7 @@ function hideNavbar() {
 	}
 }
 
-const MyNavbar = ({ signedIn, toggleSignedIn }) => (
+const MyNavbar = ({ signedIn, setSignedIn }) => (
 	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className={signedIn.toString()}>
 		<Navbar.Brand as={NavLink} to="/">Movies Library</Navbar.Brand>
 
@@ -20,7 +20,7 @@ const MyNavbar = ({ signedIn, toggleSignedIn }) => (
 
 				<Nav.Link as={NavLink} to="/"onClick={() => {
 					hideNavbar()
-					toggleSignedIn()
+					setSignedIn(false)
 				}}>Log Out</Nav.Link>
 			</Nav>
 		</Navbar.Collapse>
