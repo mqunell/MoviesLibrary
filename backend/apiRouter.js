@@ -6,9 +6,9 @@ let User = require('./models/user')
 
 
 /**
- * POST '/api/users/create' - Creates a new user
+ * POST '/api/users' - Creates a new user
  */
-router.route('/users/create').post((req, res) => {
+router.route('/users').post((req, res) => {
 	const { email, password } = req.body
 
 	// Attempt to find existing email
@@ -30,10 +30,10 @@ router.route('/users/create').post((req, res) => {
 
 
 /**
- * POST '/api/users/login' - Verifies a user's credentials
+ * GET '/api/users' - Verifies a user's credentials
  */
-router.route('/users/login').post((req, res) => {
-	const { email, password } = req.body
+router.route('/users').get((req, res) => {
+	const { email, password } = req.query
 
 	// Attempt to find existing email
 	User.find({ email })
@@ -87,14 +87,6 @@ router.route('/movies').post((req, res) => {
 router.route('/movies').get((req, res) => {
 	Movie.find()
 		.then(movies => res.json(movies))
-		.catch(err => res.status(400).send('Error: ' + err))
-})
-
-
-// GET '/api/movies/:id'
-router.route('/movies/:id').get((req, res) => {
-	Movie.findById(req.params.id)
-		.then(movie => res.json(movie))
 		.catch(err => res.status(400).send('Error: ' + err))
 })
 
