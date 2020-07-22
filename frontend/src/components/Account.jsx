@@ -77,22 +77,18 @@ export default class Account extends Component {
 					<p>Log In</p>
 				</div>
 				<div id="form_container" className={createTabActive ? '' : 'form_container_rotated'}>
-					<div id="create" className="c-h">
-						<form onSubmit={this.onSubmitCreate}>
-							<input type="email" className="form-control" id="create_email" aria-describedby="emailHelp" placeholder="Email" required onChange={this.onChangeGeneric} />
-							<input type="password" className="form-control" id="create_password_1" placeholder="Password" required onChange={this.onChangeGeneric} />
-							<input type="password" className="form-control" id="create_password_2" placeholder="Confirm password" required onChange={this.onChangeGeneric} />
-							<button type="submit" className="btn btn-primary" id="create_submit">Create Account</button>
-						</form>
-					</div>
-					<div id="login" className="c-h">
-						<form onSubmit={this.onSubmitLogin}>
-							<input type="email" className="form-control" id="login_email" aria-describedby="emailHelp" placeholder="Email" required onChange={this.onChangeGeneric} />
-							<input type="password" className="form-control" id="login_password" placeholder="Password" required onChange={this.onChangeGeneric} />
-							<p>Forgot password</p>
-							<button type="submit" className="btn btn-primary" id="login_submit">Log In</button>
-						</form>
-					</div>
+					<form onSubmit={this.onSubmitCreate}>
+						<input type="email" className="form-control" id="create_email" aria-describedby="emailHelp" placeholder="Email" required onChange={this.onChangeGeneric} />
+						<input type="password" className="form-control" id="create_password_1" placeholder="Password" required onChange={this.onChangeGeneric} />
+						<input type="password" className="form-control" id="create_password_2" placeholder="Confirm password" required onChange={this.onChangeGeneric} />
+						<button type="submit" className="btn btn-primary" id="create_submit">Create Account</button>
+					</form>
+					<form onSubmit={this.onSubmitLogin}>
+						<input type="email" className="form-control" id="login_email" aria-describedby="emailHelp" placeholder="Email" required onChange={this.onChangeGeneric} />
+						<input type="password" className="form-control" id="login_password" placeholder="Password" required onChange={this.onChangeGeneric} />
+						<p>Forgot password</p>
+						<button type="submit" className="btn btn-primary" id="login_submit">Log In</button>
+					</form>
 				</div>
 			</div>
 

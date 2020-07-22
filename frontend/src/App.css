@@ -34,6 +34,19 @@ div#account p {
 	margin-bottom: 0px;
 }
 
+div#create_tab, div#login_tab {
+	cursor: pointer;
+	transition: 0.5s;
+}
+
+.inactive_tab {
+	background-color: #cccccc;
+}
+
+.inactive_tab:hover {
+	background-color: #dddddd;
+}
+
 div#form_container {
 	grid-column: 1/3;
 	display: grid;
@@ -49,25 +62,13 @@ div#form_container {
 	left: -100% !important;
 }
 
-div#create_tab, div#login_tab {
-	cursor: pointer;
-	transition: 0.5s;
-}
-
-.inactive_tab {
-	background-color: #cccccc;
-}
-
-.inactive_tab:hover {
-	background-color: #dddddd;
-}
-
 div#form_container form {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-evenly;
-	width: 80%;
+	width: 100%;
 	height: 100%;
+	padding: 18px 15%;
 }
 
 div#form_container form button, div#form_container form p {
