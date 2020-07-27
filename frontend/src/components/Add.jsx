@@ -3,13 +3,12 @@ import axios from 'axios'  // Promise-based HTTP client
 import Alert from './Alert.js'
 
 
-const FormatCheckbox = props => (
-	<div className={'form-group col-md-' + props.width}>
-		<div className="form-check form-check-inline">
-			<input className="form-check-input" type="checkbox" id={props.id} value={props.value}
-				onChange={props.onChange}/>
-			<label className="form-check-label" htmlFor={props.id}>{props.text}</label>
+const AddMovieCard = props => (
+	<div className="add_movie_card" onClick={() => props.onClick(props.imdbId, props.title)}>
+		<div className="c-h">
+			<img src={props.poster} alt={props.title + ' poster'}/>
 		</div>
+		<p>{props.title} <span>({props.year})</span></p>
 	</div>
 )
 
@@ -17,41 +16,35 @@ const FormatCheckbox = props => (
 export default class Add extends Component {
 	state = {
 		title: '',
-		year: '',
-		seriesName: '',
-		seriesIndex: '',
-		formats: '',
-		alertText: '',
-		alertClasses: 'alert'
+		movies: []
 	}
 
 	onChangeTitle = (e) => this.setState({ title: e.target.value})
-	onChangeYear = (e) => this.setState({ year: e.target.value })
-	onChangeSeriesName = (e) => this.setState({ seriesName: e.target.value })
-	onChangeSeriesIndex = (e) => this.setState({ seriesIndex: e.target.value })
-
-	onChangeFormats = (e) => {
-		const formatNum = e.target.value
-		const currentFormats = this.state.formats
-
-		const newFormats = (currentFormats.includes(formatNum))
-			? currentFormats.replace(formatNum, '')
-			: currentFormats + formatNum
-
-		this.setState({ formats: newFormats })
-	}
 
 	onSubmit = (e) => {
 		// Prevent default HTML form submit event
 		e.preventDefault()
 
-		const { title, year, seriesName, seriesIndex, formats } = this.state
-		const movie = { title, year, seriesName, seriesIndex, formats }
+		const searchTerm = this.state.title
 
-		Alert.get().show('Adding movie...', 'info', false)
+		Alert.get().show('Searching movies...', 'info', false)
 
-		// Send movie data to backend
-		axios.post('http://localhost:5050/api/movies', movie)
+		// Send the search term to backend
+		axios.get(`http://localhost:5050/api/movies/${searchTerm}`)
+			.then(response => {
+				this.setState({ movies: response.data })
+				Alert.get().show(`Showing results for "${searchTerm}"`, 'success', true)
+			})
+			.catch(error => {
+				Alert.get().show(`Error: ${error.response ? error.response.data : 'Could not connect to server'}`, 'danger', true)
+			})
+	}
+
+	onClickMovie = (imdbId, title) => {
+		Alert.get().show(`Adding "${title}`, 'info', false)
+
+		// Send the ID to backend
+		axios.post(`http://localhost:5050/api/movies`, { imdbId })
 			.then(response => {
 				Alert.get().show(`${response.data.title} added`, 'success', true)
 			})
@@ -64,77 +57,24 @@ export default class Add extends Component {
 		return (<div className="container-xl">
 			<form onSubmit={this.onSubmit}>
 				<div className="form-row">
-					<div className="form-group col-md-8">
+					<div className="form-group col-md-12">
 						<label htmlFor="inputTitle">Title</label>
-						<input type="text" className="form-control" id="inputTitle" placeholder="Avengers: Infinity War"
-							onChange={this.onChangeTitle}/>
-					</div>
-
-					<div className="form-group col-md-4">
-						<label htmlFor="inputYear">Release Year (optional)</label>
-						<input type="text" className="form-control" id="inputYear" placeholder="2018"
-							onChange={this.onChangeYear}/>
+						<input type="text" className="form-control" id="inputTitle" placeholder="Avengers: Infinity War" onChange={this.onChangeTitle}/>
 					</div>
 				</div>
 
 				<div className="form-row">
-					<div className="form-group col-md-8">
-						<label htmlFor="inputSeriesName">Series Name</label>
-						<input type="text" className="form-control" id="inputSeriesName" placeholder="Marvel Cinematic Universe"
-							onChange={this.onChangeSeriesName}/>
+					<div className="form-group col-md-12">
+						<input type="submit" className="btn btn-primary" value="Search Movies"/>
 					</div>
-
-					<div className="form-group col-md-4">
-						<label htmlFor="inputSeriesIndex">Number in Series</label>
-						<input type="text" className="form-control" id="inputSeriesIndex" placeholder="19"
-							onChange={this.onChangeSeriesIndex}/>
-					</div>
-				</div>
-
-				<div className="form-row">
-					<legend className="col-form-label">Format(s)</legend>
-
-					<FormatCheckbox
-						id="inputDvd"
-						text="DVD"
-						value="1"
-						width="2"
-						onChange={this.onChangeFormats}
-					/>
-					<FormatCheckbox
-						id="inputBluray"
-						text="Bluray"
-						value="2"
-						width="2"
-						onChange={this.onChangeFormats}
-					/>
-					<FormatCheckbox
-						id="input4k"
-						text="4K Bluray"
-						value="3"
-						width="2"
-						onChange={this.onChangeFormats}
-					/>
-					<FormatCheckbox
-						id="inputDigital"
-						text="Digital"
-						value="4"
-						width="2"
-						onChange={this.onChangeFormats}
-					/>
-					<FormatCheckbox
-						id="inputStreaming"
-						text="Streaming Service"
-						value="5"
-						width="4"
-						onChange={this.onChangeFormats}
-					/>
-				</div>
-
-				<div className="form-row">
-					<input type="submit" className="btn btn-primary" value="Fetch Movie Data"/>
 				</div>
 			</form>
+
+			<div id="add_movie_card_container">
+				{this.state.movies.map(movie =>
+					<AddMovieCard key={movie.imdbID} imdbId={movie.imdbID} poster={movie.Poster} title={movie.Title} year={movie.Year} onClick={this.onClickMovie}/>
+				)}
+			</div>
 		</div>)
 	}
 }

@@ -56,20 +56,41 @@ router.route('/users').get((req, res) => {
 
 
 /**
- * POST '/api/movies' - Adds a new movie
- * Handles the OMDb API and calls addMovie()
+ * GET '/api/movies/:searchTerm' - Queries OMDb by search term
  */
-router.route('/movies').post((req, res) => {
-	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&t=${req.body.title}`
-	if (req.body.year !== null) {
-		omdbUrl += `&y=${req.body.year}`
-	}
+router.route('/movies/:searchTerm').get((req, res) => {
+	const omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&type=movie&s=${req.params.searchTerm}`
 
 	axios.get(omdbUrl)
 		.then(omdbResponse => {
 			if (omdbResponse.status === 200) {
 				if (omdbResponse.data.Response === 'True') {
-					const newMovie = createMovie(req.body, omdbResponse.data)
+					const movies = omdbResponse.data.Search.filter(movie => movie.Poster !== 'N/A')
+					res.status(200).json(movies)
+				}
+				else {
+					res.status(400).send(omdbResponse.data.Error)
+				}
+			}
+			else {
+				res.status(omdbResponse.status).send('Unknown OMDb error')
+			}
+		})
+})
+
+
+/**
+ * POST '/api/movies' - Adds a new movie
+ * Handles the OMDb API and calls addMovie()
+ */
+router.route('/movies').post((req, res) => {
+	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&i=${req.body.imdbId}`
+
+	axios.get(omdbUrl)
+		.then(omdbResponse => {
+			if (omdbResponse.status === 200) {
+				if (omdbResponse.data.Response === 'True') {
+					const newMovie = createMovie(omdbResponse.data)
 					addMovie(newMovie, res)
 				}
 				else {
@@ -121,10 +142,9 @@ router.route('/movies/:id').delete((req, res) => {
 /**
  * Creates a Movie based on custom data from the user and retrieved data from OMDb
  *
- * @param {object} userData User-submitted data
  * @param {object} omdbData OMDb data
  */
-function createMovie(userData, omdbData) {
+function createMovie(omdbData) {
 	return new Movie({
 		title: omdbData.Title,
 		year: omdbData.Year,
@@ -136,9 +156,9 @@ function createMovie(userData, omdbData) {
 		plot: omdbData.Plot,
 		poster: omdbData.Poster,
 		metacritic: omdbData.Metascore,
-		seriesName: userData.seriesName,
-		seriesIndex: userData.seriesIndex,
-		formats: userData.formats
+		seriesName: '',
+		seriesIndex: '',
+		formats: ''
 	})
 }
 
