@@ -5,6 +5,9 @@ let Movie = require('./models/movie')
 let User = require('./models/user')
 
 
+const omdbKey = 'a6ebd848'
+
+
 /**
  * POST '/api/users' - Creates a new user
  */
@@ -59,7 +62,7 @@ router.route('/users').get((req, res) => {
  * GET '/api/movies/:searchTerm' - Queries OMDb by search term
  */
 router.route('/movies/:searchTerm').get((req, res) => {
-	const omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&type=movie&s=${req.params.searchTerm}`
+	const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&type=movie&s=${req.params.searchTerm}`
 
 	axios.get(omdbUrl)
 		.then(omdbResponse => {
@@ -84,7 +87,7 @@ router.route('/movies/:searchTerm').get((req, res) => {
  * Handles the OMDb API and calls addMovie()
  */
 router.route('/movies').post((req, res) => {
-	let omdbUrl = `http://www.omdbapi.com/?apikey=${process.env.OMDB_KEY}&i=${req.body.imdbId}`
+	let omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&i=${req.body.imdbId}`
 
 	axios.get(omdbUrl)
 		.then(omdbResponse => {

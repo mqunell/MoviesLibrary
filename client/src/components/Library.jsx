@@ -16,7 +16,7 @@ export default class Library extends Component {
 
 	componentDidMount() {
 		// Get movies from backend, sort by title, and set to this.state
-		axios.get('http://localhost:5050/api/movies')
+		axios.get('/api/movies')
 			.then(response => {
 				this.setState({
 					movies: response.data.sort((a, b) => (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0)
@@ -105,7 +105,7 @@ export default class Library extends Component {
 		})
 
 		// Send the DELETE request
-		axios.delete(`http://localhost:5050/api/movies/${this.state.selectedMovie._id}`)
+		axios.delete(`/api/movies/${this.state.selectedMovie._id}`)
 			.then(response => {
 				console.log(response)  //todo
 			})

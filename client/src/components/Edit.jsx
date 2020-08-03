@@ -35,7 +35,7 @@ export default class Edit extends Component {
 		const { title, seriesName, seriesIndex, year, rating, runtime, genre, metacritic, plot, director, actors, formats } = this.state
 		const movie = { title, seriesName, seriesIndex, year, rating, runtime, genre, metacritic, plot, director, actors, formats }
 
-		axios.put(`http://localhost:5050/api/movies/${this.state._id}`, movie)
+		axios.put(`/api/movies/${this.state._id}`, movie)
 			.then(response => {
 				Alert.get().show(`${response.data.title} updated`, 'success', true)
 			})

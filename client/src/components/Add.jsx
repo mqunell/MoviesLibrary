@@ -30,7 +30,7 @@ export default class Add extends Component {
 		Alert.get().show('Searching movies...', 'info', false)
 
 		// Send the search term to backend
-		axios.get(`http://localhost:5050/api/movies/${searchTerm}`)
+		axios.get(`/api/movies/${searchTerm}`)
 			.then(response => {
 				this.setState({ movies: response.data })
 				Alert.get().show(`Showing results for "${searchTerm}"`, 'success', true)
@@ -44,7 +44,7 @@ export default class Add extends Component {
 		Alert.get().show(`Adding "${title}`, 'info', false)
 
 		// Send the ID to backend
-		axios.post(`http://localhost:5050/api/movies`, { imdbId })
+		axios.post(`/api/movies`, { imdbId })
 			.then(response => {
 				Alert.get().show(`${response.data.title} added`, 'success', true)
 			})
