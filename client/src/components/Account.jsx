@@ -91,8 +91,6 @@ export default class Account extends Component {
 					</form>
 				</div>
 			</div>
-
-			<p style={{ textAlign: 'center', color: 'red' }}>Note: Passwords are *not* stored securely yet!</p>
 		</>)
 	}
 }

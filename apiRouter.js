@@ -1,11 +1,14 @@
 const router = require('express').Router()
 const dotenv = require('dotenv').config()  // Parses environment variables in .env file
 const axios = require('axios')  // Promise-based HTTP client
+const bcrypt = require('bcrypt')
+
 let Movie = require('./models/movie')
 let User = require('./models/user')
 
 
 const omdbKey = 'a6ebd848'
+const pwSaltRounds = 1
 
 
 /**
@@ -19,10 +22,12 @@ router.route('/users').post((req, res) => {
 		.then(results => {
 			// If not found, create account
 			if (results.length === 0) {
-				const newUser = new User({ email, password })
-				newUser.save()
-					.then(() => res.json(newUser))
-					.catch(err => res.status(400).send('Database insert error: ' + err))
+				bcrypt.hash(password, salt, (err, hash) => {
+					const newUser = new User({ email, password: hash })
+					newUser.save()
+						.then(() => res.json(newUser))
+						.catch(err => res.status(400).send('Database insert error: ' + err))
+				})
 			}
 			else {
 				res.status(409).send(`${email} is already taken`)
@@ -43,12 +48,14 @@ router.route('/users').get((req, res) => {
 		.then(results => {
 			// If found, verify password
 			if (results.length === 1) {  // Never > 1 because of unique email addresses
-				if (password === results[0].password) {
-					res.status(200).send('Password match')
-				}
-				else {
-					res.status(400).send('Password incorrect')
-				}
+				bcrypt.compare(password, results[0].password, (err, result) => {
+					if (result) {
+						res.status(200).send('Password correct')
+					}
+					else {
+						res.status(400).send('Password incorrect')
+					}
+				})
 			}
 			else {
 				res.status(400).send('Email not found')
