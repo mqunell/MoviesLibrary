@@ -37,7 +37,7 @@ export default class Account extends Component {
 			axios.post('/api/users', newUser)
 				.then(response => {
 					Alert.get().show('Account created', 'success', true)
-					this.props.setSignedIn(true)
+					this.props.setUsername(email)
 				})
 				.catch(error => Alert.get().show(error.response.data, 'danger', true))
 		}
@@ -60,7 +60,7 @@ export default class Account extends Component {
 		axios.get('/api/users', { params: loginUser })
 			.then(response => {
 				Alert.get().show('Logging in', 'success', true)
-				this.props.setSignedIn(true)
+				this.props.setUsername(email)
 			})
 			.catch(error => Alert.get().show(error.response.data, 'danger', true))
 	}

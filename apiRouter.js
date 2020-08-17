@@ -22,7 +22,7 @@ router.route('/users').post((req, res) => {
 		.then(results => {
 			// If not found, create account
 			if (results.length === 0) {
-				bcrypt.hash(password, salt, (err, hash) => {
+				bcrypt.hash(password, pwSaltRounds, (err, hash) => {
 					const newUser = new User({ email, password: hash })
 					newUser.save()
 						.then(() => res.json(newUser))
@@ -94,13 +94,13 @@ router.route('/movies/:searchTerm').get((req, res) => {
  * Handles the OMDb API and calls addMovie()
  */
 router.route('/movies').post((req, res) => {
-	let omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&i=${req.body.imdbId}`
+	const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&i=${req.body.imdbId}`
 
 	axios.get(omdbUrl)
 		.then(omdbResponse => {
 			if (omdbResponse.status === 200) {
 				if (omdbResponse.data.Response === 'True') {
-					const newMovie = createMovie(omdbResponse.data)
+					const newMovie = createMovie(req.body.username, omdbResponse.data)
 					addMovie(newMovie, res)
 				}
 				else {
@@ -115,8 +115,10 @@ router.route('/movies').post((req, res) => {
 
 
 // GET '/api/movies' - Gets all movies
-router.route('/movies').get((req, res) => {
-	Movie.find()
+router.route('/movies:username').get((req, res) => {
+	const username = req.params.username.substring(1)
+
+	Movie.find({ username })
 		.then(movies => res.json(movies))
 		.catch(err => res.status(400).send('Error: ' + err))
 })
@@ -154,8 +156,9 @@ router.route('/movies/:id').delete((req, res) => {
  *
  * @param {object} omdbData OMDb data
  */
-function createMovie(omdbData) {
+function createMovie(username, omdbData) {
 	return new Movie({
+		username,
 		title: omdbData.Title,
 		year: omdbData.Year,
 		rating: omdbData.Rated,
@@ -180,7 +183,7 @@ function createMovie(omdbData) {
  * @param {HTTP object} res The HTTP response for sending data back
  */
 function addMovie(newMovie, res) {
-	Movie.find({ title: newMovie.title })
+	Movie.find({ username: newMovie.username, title: newMovie.title })
 		.then(results => {
 			if (results.length === 0) {
 				newMovie.save()

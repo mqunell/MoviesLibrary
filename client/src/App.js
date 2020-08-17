@@ -20,31 +20,35 @@ import Edit from './components/Edit'
  */
 class App extends Component {
 	state = {
-		signedIn: false
+		username: ''
 	}
 
 	componentDidMount() {
 		this.cookies = new Cookies()
-		this.setSignedIn(this.cookies.get('signedIn') === 'true')
+		const c = this.cookies.get('username')
+		this.setUsername((c === undefined) ? '' : c)
 	}
 
-	setSignedIn = (signedIn) => {
-		this.cookies.set('signedIn', signedIn.toString(), { path: '/' })
-		this.setState({ signedIn })
+	setUsername = (username) => {
+		this.cookies.set('username', username, { path: '/' })
+		this.setState({ username })
 	}
 
 	render() {
+		const signedIn = this.state.username.length > 0
+
 		return (<>
-			<Navbar signedIn={this.state.signedIn} setSignedIn={this.setSignedIn} />
+			<Navbar signedIn={signedIn} setUsername={this.setUsername} />
 
 			<Switch>
 				<Route exact path="/" render={() => (
-					(this.state.signedIn) ? <Library /> : <Account setSignedIn={this.setSignedIn} />
+					(signedIn) ? <Library username={this.state.username} /> : <Account setUsername={this.setUsername} />
 				)} />
-				<Route path="/account" render={() => <Account setSignedIn={this.setSignedIn} />} />
-				<Route path="/library" component={Library} />
-				<Route path="/add" component={Add} />
+				<Route path="/account" render={() => <Account setUsername={this.setUsername} />} />
+				<Route path="/add" render={() => <Add username={this.state.username} />} />
 				<Route path="/edit" component={Edit} />
+				{/* <Route path="/add" component={Add} /> */}
+
 				<Redirect to="/" />
 			</Switch>
 

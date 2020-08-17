@@ -2,6 +2,8 @@ const mongoose = require('mongoose')
 mongoose.set('useFindAndModify', false)  // Use native findOneAndUpdate() instead of deprecated userFindAndModify() behind the scenes
 
 const movieSchema = new mongoose.Schema({
+	username: { type: String, required: true },
+
 	title: { type: String, required: true },
 	year: { type: Number },
 	rating: { type: String },

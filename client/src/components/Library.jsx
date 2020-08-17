@@ -16,7 +16,7 @@ export default class Library extends Component {
 
 	componentDidMount() {
 		// Get movies from backend, sort by title, and set to this.state
-		axios.get('/api/movies')
+		axios.get(`/api/movies:${this.props.username}`)
 			.then(response => {
 				this.setState({
 					movies: response.data.sort((a, b) => (a.title < b.title) ? -1 : (a.title > b.title) ? 1 : 0)

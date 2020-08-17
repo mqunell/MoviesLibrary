@@ -41,10 +41,10 @@ export default class Add extends Component {
 	}
 
 	onClickMovie = (imdbId, title) => {
-		Alert.get().show(`Adding "${title}`, 'info', false)
+		Alert.get().show(`Adding "${title}"`, 'info', false)
 
 		// Send the ID to backend
-		axios.post(`/api/movies`, { imdbId })
+		axios.post(`/api/movies`, { username: this.props.username, imdbId })
 			.then(response => {
 				Alert.get().show(`${response.data.title} added`, 'success', true)
 			})
