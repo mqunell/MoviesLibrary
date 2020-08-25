@@ -34,7 +34,7 @@ export default class Account extends Component {
 		if (pass1 === pass2) {
 			const newUser = { 'email': email, 'password': pass1}
 
-			axios.post('/api/users', newUser)
+			axios.post('/api/users/create', newUser)
 				.then(response => {
 					Alert.get().show('Account created', 'success', true)
 					this.props.setUsername(email)
@@ -57,7 +57,7 @@ export default class Account extends Component {
 
 		const loginUser = { email, password }
 
-		axios.get('/api/users', { params: loginUser })
+		axios.post('/api/users/login', loginUser)
 			.then(response => {
 				Alert.get().show('Logging in', 'success', true)
 				this.props.setUsername(email)

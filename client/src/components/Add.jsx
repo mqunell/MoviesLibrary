@@ -30,7 +30,7 @@ export default class Add extends Component {
 		Alert.get().show('Searching movies...', 'info', false)
 
 		// Send the search term to backend
-		axios.get(`/api/movies/${searchTerm}`)
+		axios.get(`/api/omdb/${searchTerm}`)
 			.then(response => {
 				this.setState({ movies: response.data })
 				Alert.get().show(`Showing results for "${searchTerm}"`, 'success', true)

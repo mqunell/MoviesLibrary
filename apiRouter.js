@@ -12,9 +12,10 @@ const pwSaltRounds = 1
 
 
 /**
- * POST '/api/users' - Creates a new user
+ * POST '/api/users/create' - Creates a new user
+ * req.body: { email, password }
  */
-router.route('/users').post((req, res) => {
+router.route('/users/create').post((req, res) => {
 	const { email, password } = req.body
 
 	// Attempt to find existing email
@@ -38,10 +39,11 @@ router.route('/users').post((req, res) => {
 
 
 /**
- * GET '/api/users' - Verifies a user's credentials
+ * GET '/api/users/login' - Verifies a user's credentials
+ * req.body: { email, password }
  */
-router.route('/users').get((req, res) => {
-	const { email, password } = req.query
+router.route('/users/login').post((req, res) => {
+	const { email, password } = req.body
 
 	// Attempt to find existing email
 	User.find({ email })
@@ -66,10 +68,12 @@ router.route('/users').get((req, res) => {
 
 
 /**
- * GET '/api/movies/:searchTerm' - Queries OMDb by search term
+ * GET '/api/omdb/:searchTerm' - Queries OMDb by search term
+ * req.params: searchTerm
  */
-router.route('/movies/:searchTerm').get((req, res) => {
-	const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&type=movie&s=${req.params.searchTerm}`
+router.route('/omdb/:searchTerm').get((req, res) => {
+	const { searchTerm } = req.params
+	const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&type=movie&s=${searchTerm}`
 
 	axios.get(omdbUrl)
 		.then(omdbResponse => {
@@ -92,15 +96,17 @@ router.route('/movies/:searchTerm').get((req, res) => {
 /**
  * POST '/api/movies' - Adds a new movie
  * Handles the OMDb API and calls addMovie()
+ * req.body: { username, imdbId }
  */
 router.route('/movies').post((req, res) => {
-	const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&i=${req.body.imdbId}`
+	const { username, imdbId } = req.body
+	const omdbUrl = `http://www.omdbapi.com/?apikey=${omdbKey}&i=${imdbId}`
 
 	axios.get(omdbUrl)
 		.then(omdbResponse => {
 			if (omdbResponse.status === 200) {
 				if (omdbResponse.data.Response === 'True') {
-					const newMovie = createMovie(req.body.username, omdbResponse.data)
+					const newMovie = createMovie(username, omdbResponse.data)
 					addMovie(newMovie, res)
 				}
 				else {
@@ -114,9 +120,12 @@ router.route('/movies').post((req, res) => {
 })
 
 
-// GET '/api/movies' - Gets all movies
-router.route('/movies:username').get((req, res) => {
-	const username = req.params.username.substring(1)
+/**
+ * GET '/api/movies/:username' - Gets all movies for user
+ * req.params: { username }
+ */
+router.route('/movies/:username').get((req, res) => {
+	const { username } = req.params
 
 	Movie.find({ username })
 		.then(movies => res.json(movies))
@@ -124,28 +133,37 @@ router.route('/movies:username').get((req, res) => {
 })
 
 
-// PUT '/api/movies/:id'
-router.route('/movies/:id').put((req, res) => {
-	const movieId = req.params.id
-	const movie = req.body
+/**
+ * PUT '/api/movies' - Updates a movie
+ * Replaces a movie object with a new one
+ * req.body: { movieMongoId, movie }
+ */
+router.route('/movies').put((req, res) => {
+	const { movieMongoId, movie } = req.body
 
-	Movie.findByIdAndUpdate(movieId, movie)
+	Movie.findByIdAndUpdate(movieMongoId, movie)
 		.then(() => res.json(movie))
 		.catch(err => res.status(400).send('Error: ' + err))
 })
 
 
 // DELETE '/api/movies' - Deletes all movies
-router.route('/movies').delete((req, res) => {
+/* router.route('/movies').delete((req, res) => {
 	Movie.deleteMany({})
 		.then(output => res.json(output))
 		.catch(err => res.startus(400).send('Error: ' + err))
-})
+}) */
 
 
-// DELETE '/api/movies/:id'
-router.route('/movies/:id').delete((req, res) => {
-	Movie.findByIdAndDelete(req.params.id)
+/**
+ * DELETE '/api/movies' - Deletes a movie
+ * req.body: { movieMongoId }
+ */
+router.route('/movies').delete((req, res) => {
+	const { movieMongoId } = req.body
+	console.log(movieMongoId)
+
+	Movie.findByIdAndDelete(movieMongoId)
 		.then(movie => res.json(movie))
 		.catch(err => res.status(400).send('Error: ' + err))
 })

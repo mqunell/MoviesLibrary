@@ -32,10 +32,12 @@ export default class Edit extends Component {
 	onSubmit = (e) => {
 		e.preventDefault()
 
+		const movieMongoId = this.state._id
+
 		const { title, seriesName, seriesIndex, year, rating, runtime, genre, metacritic, plot, director, actors, formats } = this.state
 		const movie = { title, seriesName, seriesIndex, year, rating, runtime, genre, metacritic, plot, director, actors, formats }
 
-		axios.put(`/api/movies/${this.state._id}`, movie)
+		axios.put('/api/movies', { movieMongoId, movie })
 			.then(response => {
 				Alert.get().show(`${response.data.title} updated`, 'success', true)
 			})
