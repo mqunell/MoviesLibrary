@@ -5,8 +5,8 @@ const mongoose = require('mongoose')  // Helps connect to MongoDB database
 const path = require('path')
 
 
-// Env variables
-const { EXPRESS_PORT, MONGO_URI, NODE_ENV } = process.env
+// .env variables and Heroku PORT
+const { MONGO_URI, NODE_ENV, PORT } = process.env
 
 
 // Create the Express app and add middleware
@@ -36,5 +36,5 @@ if (NODE_ENV === 'production' || NODE_ENV === 'staging') {
 
 
 // Start the Express server
-const port = EXPRESS_PORT || 5000
+const port = PORT || 5050
 app.listen(port, () => console.log(`Server listening on port ${port}...`))
