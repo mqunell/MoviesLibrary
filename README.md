@@ -16,8 +16,8 @@ In MoviesLibrary/backend/:
 * Whitelist the server IP address in MongoDB Atlas
 * Manually copy .env, which looks like this:
 ```
-ATLAS_URI=<MongoDB Atlas connection string>
-PORT=<Port number>
+EXPRESS_PORT=<Port number>
+MONGO_URI=<MongoDB Atlas connection string>
 OMDB_KEY=<OMDb key>
 ```
 

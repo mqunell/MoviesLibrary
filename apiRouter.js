@@ -7,7 +7,7 @@ let Movie = require('./models/movie')
 let User = require('./models/user')
 
 
-const omdbKey = 'a6ebd848'
+const omdbKey = process.env.OMDB_KEY
 const pwSaltRounds = 1
 
 
