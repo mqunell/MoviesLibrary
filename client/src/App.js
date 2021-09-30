@@ -1,62 +1,68 @@
-import React, { Component } from 'react'
-import { Route, Switch, Redirect } from "react-router-dom"
-import Cookies from 'universal-cookie'
+import React, { useEffect, useState } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 
 // CSS
-import 'bootstrap/dist/css/bootstrap.css'
-import './App.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.css';
 
 // Components
-import Navbar from './components/Navbar'
-import Account from './components/Account'
-import Library from './components/Library'
-import Add from './components/Add'
-import Edit from './components/Edit'
-
+import Navbar from './components/Navbar';
+import Account from './components/Account';
+import Library from './components/Library';
+import Add from './components/Add';
+import Edit from './components/Edit';
 
 /**
  * Displays the Navbar and Account
  * <Route>s must be added here for <Link>s throughout the project
  */
-class App extends Component {
-	state = {
-		username: ''
-	}
+function App() {
+	const [username, setUsername] = useState('');
 
-	componentDidMount() {
-		this.cookies = new Cookies()
-		const c = this.cookies.get('username')
-		this.setUsername((c === undefined) ? '' : c)
-	}
+	const cookies = new Cookies();
 
-	setUsername = (username) => {
-		this.cookies.set('username', username, { path: '/' })
-		this.setState({ username })
-	}
+	useEffect(() => {
+		const cookieUsername = cookies.get('username');
+		setUsername(cookieUsername === undefined ? '' : cookieUsername);
+	}, [cookies]);
 
-	render() {
-		const signedIn = this.state.username.length > 0
+	const setUsernameCookie = (username) => {
+		cookies.set('username', username, { path: '/' });
+		setUsername(username);
+	};
 
-		return (<>
-			<Navbar signedIn={signedIn} setUsername={this.setUsername} />
+	const signedIn = username.length > 0;
+
+	return (
+		<>
+			<Navbar signedIn={signedIn} setUsername={setUsernameCookie} />
 
 			<Switch>
-				<Route exact path="/" render={() => (
-					(signedIn) ? <Library username={this.state.username} /> : <Account setUsername={this.setUsername} />
-				)} />
-				<Route path="/account" render={() => <Account setUsername={this.setUsername} />} />
-				<Route path="/add" render={() => <Add username={this.state.username} />} />
+				<Route
+					exact
+					path="/"
+					render={() =>
+						signedIn ? (
+							<Library username={username} />
+						) : (
+							<Account setUsername={setUsernameCookie} />
+						)
+					}
+				/>
+				<Route
+					path="/account"
+					render={() => <Account setUsername={setUsernameCookie} />}
+				/>
+				<Route path="/add" render={() => <Add username={username} />} />
 				<Route path="/edit" component={Edit} />
-				{/* <Route path="/add" component={Add} /> */}
 
 				<Redirect to="/" />
 			</Switch>
 
-			<div id="alert" className={this.state.alertClasses} role="alert">
-				{this.state.alertText}
-			</div>
-		</>)
-	}
+			<div id="alert" role="alert" />
+		</>
+	);
 }
 
-export default App
+export default App;
