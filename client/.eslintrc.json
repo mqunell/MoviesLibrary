@@ -1,0 +1,33 @@
+{
+	"env": {
+		"browser": true
+	},
+	"extends": ["airbnb", "plugin:react/recommended", "prettier"],
+	"parserOptions": {
+		"ecmaFeatures": {
+			"jsx": true
+		},
+		"ecmaVersion": 12,
+		"sourceType": "module"
+	},
+	"plugins": ["prettier", "react"],
+	"rules": {
+		"no-alert": "off",
+		"no-console": "off",
+		"no-plusplus": [
+			"warn",
+			{
+				"allowForLoopAfterthoughts": true
+			}
+		],
+		"no-unused-expressions": [
+			"warn",
+			{
+				"allowTernary": true
+			}
+		],
+		"no-unused-vars": "warn",
+		"prefer-template": "off",
+		"prettier/prettier": ["warn"]
+	}
+}

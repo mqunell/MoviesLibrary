@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-mongoose.set('useFindAndModify', false)  // Use native findOneAndUpdate() instead of deprecated userFindAndModify() behind the scenes
+const mongoose = require('mongoose');
 
 const movieSchema = new mongoose.Schema({
 	username: { type: String, required: true },
@@ -17,8 +16,8 @@ const movieSchema = new mongoose.Schema({
 
 	seriesName: { type: String },
 	seriesIndex: { type: Number },
-	formats: { type: String }
-})
+	formats: { type: String },
+});
 
-const Movie = mongoose.model('Movie', movieSchema)
-module.exports = Movie
+const Movie = mongoose.model('Movie', movieSchema);
+module.exports = Movie;
