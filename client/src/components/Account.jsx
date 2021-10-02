@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import Alert from './Alert.js';
+import Alert from './Alert';
 
 export default function Account({ setUsername }) {
 	const [createTabActive, setCreateTabActive] = useState(false);
