@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import axios from 'axios'; // Promise-based HTTP client
-import Alert from './Alert.js';
+import React, { useContext, useState } from 'react';
+import axios from 'axios';
+import { AlertContext } from '../contexts/AlertContext';
 
 const AddMovieCard = ({ imdbId, title, year, poster, onClick }) => (
 	<div className="add_movie_card" onClick={() => onClick(imdbId, title)}>
@@ -14,6 +14,8 @@ const AddMovieCard = ({ imdbId, title, year, poster, onClick }) => (
 );
 
 function Add({ username }) {
+	const { addAlert } = useContext(AlertContext);
+
 	const [title, setTitle] = useState('');
 	const [movies, setMovies] = useState([]);
 
@@ -21,39 +23,39 @@ function Add({ username }) {
 		// Prevent default HTML form submit event
 		e.preventDefault();
 
-		Alert.get().show('Searching movies...', 'info', false);
+		addAlert('Searching movies...', 'info');
 
 		// Send the search term to backend
 		axios
 			.get(`/api/omdb/${title}`)
 			.then((response) => {
 				setMovies(response.data);
-				Alert.get().show(`Showing results for "${title}"`, 'success', true);
+				addAlert(`Showing results for "${title}"`, 'success');
 			})
 			.catch((error) => {
 				const errorMessage = error.response
 					? error.response.data
 					: 'Could not connect to server';
 
-				Alert.get().show(`Error: ${errorMessage}`, 'danger', true);
+				addAlert(`Error: ${errorMessage}`, 'danger');
 			});
 	};
 
 	const onClickMovie = (imdbId, movieTitle) => {
-		Alert.get().show(`Adding "${movieTitle}"`, 'info', false);
+		addAlert(`Adding "${movieTitle}"`, 'info');
 
 		// Send the ID to backend
 		axios
 			.post(`/api/movies`, { username, imdbId })
 			.then((response) => {
-				Alert.get().show(`${response.data.title} added`, 'success', true);
+				addAlert(`${response.data.title} added`, 'success');
 			})
 			.catch((error) => {
 				const errorMessage = error.response
 					? error.response.data
 					: 'Could not connect to server';
 
-				Alert.get().show(`Error: ${errorMessage}`, 'danger', true);
+				addAlert(`Error: ${errorMessage}`, 'danger');
 			});
 	};
 

@@ -12,6 +12,7 @@ import Account from './components/Account';
 import Library from './components/Library';
 import Add from './components/Add';
 import Edit from './components/Edit';
+import Alerts from './components/Alerts';
 
 /**
  * Displays the Navbar and Account
@@ -60,7 +61,7 @@ function App() {
 				<Redirect to="/" />
 			</Switch>
 
-			<div id="alert" role="alert" />
+			<Alerts />
 		</>
 	);
 }

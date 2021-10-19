@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import Alert from './Alert.js';
+import { AlertContext } from '../contexts/AlertContext';
 
 export default function Edit({ location }) {
+	const { addAlert } = useContext(AlertContext);
+
 	// Props are passed differently when using a <Link>
 	const [movie, setMovie] = useState(location.movie);
 
@@ -36,11 +38,11 @@ export default function Edit({ location }) {
 		axios
 			.put('/api/movies', { movieMongoId: _id, movie: movieObject })
 			.then((response) => {
-				Alert.get().show(`${response.data.title} updated`, 'success', true);
+				addAlert(`${response.data.title} updated`, 'success');
 			})
 			.catch((error) => {
 				const errorMessage = error.reponse ? error.response.data : 'Unknown error';
-				Alert.get().show(`Error: ${errorMessage}`, 'danger', true);
+				addAlert(`Error: ${errorMessage}`, 'danger');
 			});
 	};
 

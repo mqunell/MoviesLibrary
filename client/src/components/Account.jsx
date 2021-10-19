@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
-import Alert from './Alert';
+import { AlertContext } from '../contexts/AlertContext';
 
 export default function Account({ setUsername }) {
+	const { addAlert } = useContext(AlertContext);
+
 	const [createTabActive, setCreateTabActive] = useState(false);
 	const [createEmail, setCreateEmail] = useState('');
 	const [createPasswordOne, setCreatePasswordOne] = useState('');
@@ -11,7 +13,6 @@ export default function Account({ setUsername }) {
 	const [loginPassword, setLoginPassword] = useState('');
 
 	const onSubmitCreate = (e) => {
-		// Prevent default HTML form submit event
 		e.preventDefault();
 
 		// Form's "required" properties handle basic validation
@@ -21,23 +22,23 @@ export default function Account({ setUsername }) {
 		const pass2 = createPasswordTwo;
 
 		// Client-side password verification
-		if (pass1 === pass2) {
-			const newUser = { email, password: pass1 };
-
-			axios
-				.post('/api/users/create', newUser)
-				.then((response) => {
-					Alert.get().show('Account created', 'success', true);
-					setUsername(email);
-				})
-				.catch((error) => Alert.get().show(error.response.data, 'danger', true));
-		} else {
-			Alert.get().show("Passwords don't match", 'danger', true);
+		if (pass1 !== pass2) {
+			addAlert("Passwords don't match", 'danger');
+			return;
 		}
+
+		const newUser = { email, password: pass1 };
+
+		axios
+			.post('/api/users/create', newUser)
+			.then(() => {
+				addAlert('Account created', 'success');
+				setUsername(email);
+			})
+			.catch((error) => addAlert(error.response.data, 'danger'));
 	};
 
 	const onSubmitLogin = (e) => {
-		// Prevent default HTML form submit event
 		e.preventDefault();
 
 		// Form's "required" properties handle basic validation
@@ -49,11 +50,11 @@ export default function Account({ setUsername }) {
 
 		axios
 			.post('/api/users/login', loginUser)
-			.then((response) => {
-				Alert.get().show('Logging in', 'success', true);
+			.then(() => {
+				addAlert('Logging in', 'success');
 				setUsername(email);
 			})
-			.catch((error) => Alert.get().show(error.response.data, 'danger', true));
+			.catch((error) => addAlert(error.response.data, 'danger'));
 	};
 
 	return (

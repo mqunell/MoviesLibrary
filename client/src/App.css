@@ -4,16 +4,16 @@
 	align-items: center;
 }
 
-
 /* --- Navbar --- */
-nav.false button.navbar-toggler, nav.false div.navbar-nav {  /* Signed out */
+nav.false button.navbar-toggler,
+nav.false div.navbar-nav {
+	/* Signed out */
 	display: none;
 }
 
 .navbar-nav a:last-child {
-	color: rgba(255, 255, 255, 0.5) !important;  /* Override "active" color */
+	color: rgba(255, 255, 255, 0.5) !important; /* Override "active" color */
 }
-
 
 /* --- Account --- */
 div#account {
@@ -34,7 +34,8 @@ div#account p {
 	margin-bottom: 0px;
 }
 
-div#create_tab, div#login_tab {
+div#create_tab,
+div#login_tab {
 	cursor: pointer;
 	transition: 0.5s;
 }
@@ -71,11 +72,11 @@ div#form_container form {
 	padding: 18px 15%;
 }
 
-div#form_container form button, div#form_container form p {
+div#form_container form button,
+div#form_container form p {
 	width: max-content;
 	margin: 0px auto;
 }
-
 
 /* --- Library --- */
 /* Sort */
@@ -91,11 +92,12 @@ div#form_container form button, div#form_container form p {
 }
 
 .dropdown-item {
-	cursor: pointer
+	cursor: pointer;
 }
 
 /* MovieInfo (default: modal version) */
-.movie_info, .movie_info_col {
+.movie_info,
+.movie_info_col {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
@@ -151,7 +153,6 @@ div#form_container form button, div#form_container form p {
 	margin-bottom: 0px;
 }
 
-
 /* Movie cards */
 .movie_card_container {
 	display: flex;
@@ -199,7 +200,7 @@ h1.series_name:not(:first-of-type) {
 	color: white;
 	font-size: 14px;
 	background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1));
-	transition: .4s ease;
+	transition: 0.4s ease;
 }
 
 .movie_card .movie_info_title {
@@ -248,7 +249,6 @@ h1.series_name:not(:first-of-type) {
 .modal_top button {
 	width: 146px;
 }
-
 
 /* --- Add --- */
 /* Bootstrap overrides */
@@ -301,12 +301,17 @@ h1.series_name:not(:first-of-type) {
 	font-style: italic;
 }
 
-.alert {
+/* Alerts */
+#alerts_container {
 	position: fixed;
 	left: calc(50% - 150px);
-	bottom: -68px;
+	bottom: 0;
+	/* bottom: -68px; */
 	width: 300px;
-	margin-bottom: 0;
+}
+
+.alert {
+	margin-bottom: 1rem;
 	text-align: center;
 	transition: 0.4s ease;
 }
@@ -319,7 +324,6 @@ form {
 .show_alert {
 	bottom: 18px !important;
 }
-
 
 @media only screen and (min-width: 576px) {
 	.navbar-nav {
