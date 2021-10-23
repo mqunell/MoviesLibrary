@@ -1,9 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { AlertContext } from '../contexts/AlertContext';
+import { useAlert } from '../contexts/AlertContext';
 
 export default function Account({ setUsername }) {
-	const { addAlert } = useContext(AlertContext);
+	const addAlert = useAlert();
 
 	const [createTabActive, setCreateTabActive] = useState(false);
 	const [createEmail, setCreateEmail] = useState('');
@@ -23,7 +23,7 @@ export default function Account({ setUsername }) {
 
 		// Client-side password verification
 		if (pass1 !== pass2) {
-			addAlert("Passwords don't match", 'danger');
+			addAlert({ type: 'danger', text: "Passwords don't match" });
 			return;
 		}
 
@@ -32,10 +32,10 @@ export default function Account({ setUsername }) {
 		axios
 			.post('/api/users/create', newUser)
 			.then(() => {
-				addAlert('Account created', 'success');
+				addAlert({ type: 'success', text: 'Account created' });
 				setUsername(email);
 			})
-			.catch((error) => addAlert(error.response.data, 'danger'));
+			.catch((error) => addAlert({ type: 'danger', text: error.response.data }));
 	};
 
 	const onSubmitLogin = (e) => {
@@ -51,10 +51,10 @@ export default function Account({ setUsername }) {
 		axios
 			.post('/api/users/login', loginUser)
 			.then(() => {
-				addAlert('Logging in', 'success');
+				addAlert({ type: 'success', text: 'Logging in' });
 				setUsername(email);
 			})
-			.catch((error) => addAlert(error.response.data, 'danger'));
+			.catch((error) => addAlert({ type: 'danger', text: error.response.data }));
 	};
 
 	return (

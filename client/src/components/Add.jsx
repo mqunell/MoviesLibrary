@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { AlertContext } from '../contexts/AlertContext';
+import { useAlert } from '../contexts/AlertContext';
 
 const AddMovieCard = ({ imdbId, title, year, poster, onClick }) => (
 	<div className="add_movie_card" onClick={() => onClick(imdbId, title)}>
@@ -14,7 +14,7 @@ const AddMovieCard = ({ imdbId, title, year, poster, onClick }) => (
 );
 
 function Add({ username }) {
-	const { addAlert } = useContext(AlertContext);
+	const addAlert = useAlert();
 
 	const [title, setTitle] = useState('');
 	const [movies, setMovies] = useState([]);
@@ -23,39 +23,39 @@ function Add({ username }) {
 		// Prevent default HTML form submit event
 		e.preventDefault();
 
-		addAlert('Searching movies...', 'info');
+		addAlert({ type: 'info', text: 'Searching movies...' });
 
 		// Send the search term to backend
 		axios
 			.get(`/api/omdb/${title}`)
 			.then((response) => {
 				setMovies(response.data);
-				addAlert(`Showing results for "${title}"`, 'success');
+				addAlert({ type: 'success', text: `Showing results for "${title}"` });
 			})
 			.catch((error) => {
 				const errorMessage = error.response
 					? error.response.data
 					: 'Could not connect to server';
 
-				addAlert(`Error: ${errorMessage}`, 'danger');
+				addAlert({ type: 'danger', text: `Error: ${errorMessage}` });
 			});
 	};
 
 	const onClickMovie = (imdbId, movieTitle) => {
-		addAlert(`Adding "${movieTitle}"`, 'info');
+		addAlert({ type: 'info', text: `Adding "${movieTitle}"` });
 
 		// Send the ID to backend
 		axios
 			.post(`/api/movies`, { username, imdbId })
-			.then((response) => {
-				addAlert(`${response.data.title} added`, 'success');
-			})
+			.then((response) =>
+				addAlert({ type: 'success', text: `${response.data.title} added` })
+			)
 			.catch((error) => {
 				const errorMessage = error.response
 					? error.response.data
 					: 'Could not connect to server';
 
-				addAlert(`Error: ${errorMessage}`, 'danger');
+				addAlert({ type: 'danger', text: `Error: ${errorMessage}` });
 			});
 	};
 

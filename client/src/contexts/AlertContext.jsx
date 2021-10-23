@@ -1,27 +1,44 @@
-import React, { createContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
+import Alerts from '../components/Alerts';
 
-export const AlertContext = createContext();
+const AlertContext = createContext();
 
 const AlertContextProvider = ({ children }) => {
-	const [alerts, setAlerts] = useState([]); // [{ text, type }]
+	const [alerts, dispatch] = useReducer((reducerState, action) => {
+		switch (action.type) {
+			case 'ADD_ALERT':
+				return [...reducerState, { ...action.payload }];
 
-	const alertsRef = useRef(alerts);
-	alertsRef.current = alerts;
+			case 'REMOVE_ALERT':
+				return reducerState.filter((item) => item.id !== action.id);
 
-	const addAlert = (text, type) => {
-		const id = uuid();
-
-		setAlerts([...alertsRef.current, { id, text, type }]);
-
-		setTimeout(() => {
-			setAlerts(alertsRef.current.filter((alert) => alert.id !== id));
-		}, 4000);
-	};
+			default:
+				return reducerState;
+		}
+	}, []);
 
 	return (
-		<AlertContext.Provider value={{ alerts, addAlert }}>{children}</AlertContext.Provider>
+		<AlertContext.Provider value={dispatch}>
+			{children}
+			<Alerts alerts={alerts} dispatch={dispatch} />
+		</AlertContext.Provider>
 	);
+};
+
+export const useAlert = () => {
+	// Get the full reducer from AlertContextProvider
+	const dispatch = useContext(AlertContext);
+
+	return (props) => {
+		dispatch({
+			type: 'ADD_ALERT',
+			payload: {
+				id: uuid(),
+				...props,
+			},
+		});
+	};
 };
 
 export default AlertContextProvider;
