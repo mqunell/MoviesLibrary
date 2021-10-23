@@ -28,6 +28,7 @@
 		],
 		"no-unused-vars": "warn",
 		"prefer-template": "off",
-		"prettier/prettier": ["warn"]
+		"prettier/prettier": ["warn"],
+		"radix": ["warn", "as-needed"]
 	}
 }
