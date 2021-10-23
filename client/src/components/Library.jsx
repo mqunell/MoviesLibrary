@@ -16,14 +16,10 @@ export default function Library({ username }) {
 		axios
 			.get(`/api/movies/${username}`)
 			.then((response) => {
-				const sortedMovies = response.data.sort((a, b) =>
-					a.title < b.title ? -1 : a.title > b.title ? 1 : 0
-				);
+				const sortedMovies = response.data.sort((a, b) => (a.title <= b.title ? -1 : 1));
 				setMovies(sortedMovies);
 			})
-			.catch((error) => {
-				console.log(error);
-			});
+			.catch((error) => console.log(error));
 	}, [username]);
 
 	// Returns an array of <MovieInfo> (and <h1> is sorting by series)
@@ -66,38 +62,42 @@ export default function Library({ username }) {
 		toggleSortDropdown();
 		setSortDropdownText(sortBy);
 
-		const sortedMovies = this.state.movies.sort((a, b) => {
+		const sortedMovies = movies.sort((a, b) => {
 			if (sortBy === 'Title') {
-				return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-			} else if (sortBy === 'Series') {
+				return a.title <= b.title ? -1 : 1;
+			}
+
+			if (sortBy === 'Series') {
 				const asn = a.seriesName;
 				const bsn = b.seriesName;
 
-				// Both have series; same series; different series
+				// Both have series -> same series, different series
 				if (asn !== '' && bsn !== '') {
-					if (asn === bsn) return a.seriesIndex < b.seriesIndex ? -1 : 1;
-					else return asn < bsn ? -1 : 1;
+					if (asn === bsn) {
+						return a.seriesIndex < b.seriesIndex ? -1 : 1;
+					}
+					return asn < bsn ? -1 : 1;
 				}
-				// Both don't have series; one has series; neither has series
-				else {
-					if (asn !== '' || bsn !== '') return asn !== '' ? -1 : 1;
-					else return a.title < b.title ? -1 : a.title > b.title ? 1 : 0;
-				}
-			} else {
-				// if (sortBy === 'Runtime')
-				const art = parseInt(a.runtime);
-				const brt = parseInt(b.runtime);
 
-				return art < brt ? -1 : art > brt ? 1 : 0;
+				// Both don't have series -> one has series, neither has series
+				if (asn !== '' || bsn !== '') {
+					return asn !== '' ? -1 : 1;
+				}
+
+				return a.title <= b.title ? -1 : 1;
 			}
+
+			// if (sortBy === 'Runtime')
+			const art = parseInt(a.runtime);
+			const brt = parseInt(b.runtime);
+
+			return art <= brt ? -1 : 1;
 		});
 
 		setMovies(sortedMovies);
 	};
 
-	const toggleSortDropdown = () => {
-		setSortDropdownDisplayed(sortDropdownDisplayed);
-	};
+	const toggleSortDropdown = () => setSortDropdownDisplayed(!sortDropdownDisplayed);
 
 	const setModalMovie = (movie) => {
 		setSelectedMovie(movie);

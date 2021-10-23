@@ -25,7 +25,7 @@ router.route('/users/create').post((req, res) => {
 					const newUser = new User({ email, password: hash });
 					newUser
 						.save()
-						.then(() => res.json(newUser))
+						.then(() => res.status(200).json(newUser))
 						.catch((err) => res.status(400).send('Database insert error: ' + err));
 				});
 			} else {
