@@ -1,0 +1,51 @@
+#alerts_container {
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.alert {
+	width: 300px;
+	margin-bottom: 0 !important;
+	text-align: center;
+	animation: SlideUp 500ms;
+	animation-fill-mode: forwards;
+}
+
+.alert.exit {
+	animation: SlideDown 500ms;
+	animation-fill-mode: forwards;
+}
+
+@keyframes SlideUp {
+	0% {
+		top: 74px;
+		margin-top: -74px;
+		opacity: 0;
+	}
+
+	100% {
+		top: 0;
+		margin-top: 0;
+		opacity: 1;
+	}
+}
+
+@keyframes SlideDown {
+	0% {
+		top: 0;
+		margin-top: 0;
+		opacity: 1;
+	}
+
+	100% {
+		top: 74px;
+		margin-top: -74px;
+		opacity: 0;
+	}
+}

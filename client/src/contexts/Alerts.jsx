@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import './Alerts.css';
 
 const Alerts = ({ alerts, dispatch }) => {
 	if (!alerts) return <></>;
@@ -14,15 +15,21 @@ const Alerts = ({ alerts, dispatch }) => {
 };
 
 const Alert = ({ dispatch, id, text, type }) => {
+	const [exit, setExit] = useState(false);
+
 	setTimeout(() => {
-		dispatch({
-			type: 'REMOVE_ALERT',
-			id,
-		});
-	}, 4000);
+		setExit(true);
+
+		setTimeout(() => {
+			dispatch({
+				type: 'REMOVE_ALERT',
+				id,
+			});
+		}, 500);
+	}, 3500);
 
 	return (
-		<div className={`alert alert-${type} show_alert`} role="alert">
+		<div className={`alert alert-${type} show_alert ${exit ? 'exit' : ''}`} role="alert">
 			{text}
 		</div>
 	);

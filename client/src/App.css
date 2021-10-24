@@ -301,28 +301,9 @@ h1.series_name:not(:first-of-type) {
 	font-style: italic;
 }
 
-/* Alerts */
-#alerts_container {
-	position: fixed;
-	left: calc(50% - 150px);
-	bottom: 0;
-	/* bottom: -68px; */
-	width: 300px;
-}
-
-.alert {
-	margin-bottom: 1rem;
-	text-align: center;
-	transition: 0.4s ease;
-}
-
 /* Custom */
 form {
 	padding: 18px;
-}
-
-.show_alert {
-	bottom: 18px !important;
 }
 
 @media only screen and (min-width: 576px) {

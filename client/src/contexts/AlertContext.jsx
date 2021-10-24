@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import { v4 as uuid } from 'uuid';
-import Alerts from '../components/Alerts';
+import Alerts from './Alerts';
 
 const AlertContext = createContext();
 

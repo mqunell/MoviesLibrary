@@ -12,7 +12,7 @@ import Account from './components/Account';
 import Library from './components/Library';
 import Add from './components/Add';
 import Edit from './components/Edit';
-import Alerts from './components/Alerts';
+import Alerts from './contexts/Alerts';
 
 /**
  * Displays the Navbar and Account
@@ -28,9 +28,9 @@ function App() {
 		setUsername(cookieUsername === undefined ? '' : cookieUsername);
 	}, [cookies]);
 
-	const setUsernameCookie = (username) => {
-		cookies.set('username', username, { path: '/' });
-		setUsername(username);
+	const setUsernameCookie = (newUsername) => {
+		cookies.set('username', newUsername, { path: '/' });
+		setUsername(newUsername);
 	};
 
 	const signedIn = username.length > 0;
