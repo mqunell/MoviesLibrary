@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal } from 'react-bootstrap';
+import { Dropdown, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import MovieInfo from './MovieInfo';
@@ -7,7 +7,6 @@ import MovieInfo from './MovieInfo';
 export default function Library({ username }) {
 	const [movies, setMovies] = useState([]);
 	const [sortDropdownText, setSortDropdownText] = useState('Title');
-	const [sortDropdownDisplayed, setSortDropdownDisplayed] = useState(false);
 	const [selectedMovie, setSelectedMovie] = useState('');
 	const [showModal, setShowModal] = useState(false);
 
@@ -22,44 +21,7 @@ export default function Library({ username }) {
 			.catch((error) => console.log(error));
 	}, [username]);
 
-	// Returns an array of <MovieInfo> (and <h1> is sorting by series)
-	const getMovieCards = () => {
-		const output = [];
-		let currentSeries = '';
-
-		movies.forEach((movie) => {
-			// Append series names if sorted by series
-			if (sortDropdownText === 'Series') {
-				const seriesName = movie.seriesName || 'Standalone';
-
-				if (seriesName !== currentSeries) {
-					output.push(
-						<h1 className="series_name" key={seriesName + 'heading'}>
-							{seriesName}
-						</h1>
-					);
-					currentSeries = seriesName;
-				}
-			}
-
-			// Use MongoDB ID for React key
-			output.push(
-				<div className="movie_card" onClick={() => setModalMovie(movie)} key={movie._id}>
-					<img
-						className="movie_card_image"
-						src={movie.poster}
-						alt={movie.title + ' poster'}
-					/>
-					<MovieInfo movie={movie} />
-				</div>
-			);
-		});
-
-		return output;
-	};
-
 	const sortMovies = (sortBy) => {
-		toggleSortDropdown();
 		setSortDropdownText(sortBy);
 
 		const sortedMovies = movies.sort((a, b) => {
@@ -97,11 +59,52 @@ export default function Library({ username }) {
 		setMovies(sortedMovies);
 	};
 
-	const toggleSortDropdown = () => setSortDropdownDisplayed(!sortDropdownDisplayed);
-
 	const setModalMovie = (movie) => {
 		setSelectedMovie(movie);
 		setShowModal(true);
+	};
+
+	// Returns a sorted array of MovieInfo (and <h1> if sorting by series)
+	const getMovieCards = () => {
+		const output = [];
+		let currentSeries = '';
+
+		movies.forEach((movie, index) => {
+			// Append series names if sorted by series
+			if (sortDropdownText === 'Series') {
+				const seriesName = movie.seriesName || 'Standalone';
+
+				if (seriesName !== currentSeries) {
+					output.push(
+						<h1 className="series_name" key={seriesName + 'heading'}>
+							{seriesName}
+						</h1>
+					);
+					currentSeries = seriesName;
+				}
+			}
+
+			// Use MongoDB ID for React key
+			output.push(
+				<div
+					key={movie._id}
+					className="movie_card"
+					role="button"
+					onClick={() => setModalMovie(movie)}
+					onKeyPress={() => setModalMovie(movie)}
+					tabIndex={index + 1}
+				>
+					<img
+						className="movie_card_image"
+						src={movie.poster}
+						alt={movie.title + ' poster'}
+					/>
+					<MovieInfo movie={movie} />
+				</div>
+			);
+		});
+
+		return output;
 	};
 
 	const deleteMovie = () => {
@@ -118,41 +121,31 @@ export default function Library({ username }) {
 		axios
 			.delete('/api/movies', deleteData)
 			.then((response) => {
-				console.log(response); //todo
+				console.log(response); // todo
 			})
 			.catch((error) => {
-				console.log(error); //todo
+				console.log(error); // todo
 			});
 	};
 
 	return (
 		<>
-			<div className="sort_container" role="group">
+			<div className="sort_container">
 				<p>Sort by:</p>
-				<div className="dropdown">
-					<button
-						id="sort_button"
-						className="btn btn-primary dropdown-toggle"
-						type="button"
-						onClick={toggleSortDropdown}
-					>
-						{sortDropdownText}
-					</button>
-					<div
-						id="sort_dropdown"
-						className={'dropdown-menu' + (sortDropdownDisplayed ? ' show' : '')}
-					>
-						<span className="dropdown-item" onClick={() => sortMovies('Title')}>
+				<Dropdown>
+					<Dropdown.Toggle variant="primary">{sortDropdownText}</Dropdown.Toggle>
+					<Dropdown.Menu>
+						<Dropdown.Item href="#" onClick={() => sortMovies('Title')}>
 							Title
-						</span>
-						<span className="dropdown-item" onClick={() => sortMovies('Series')}>
+						</Dropdown.Item>
+						<Dropdown.Item href="#" onClick={() => sortMovies('Series')}>
 							Series
-						</span>
-						<span className="dropdown-item" onClick={() => sortMovies('Runtime')}>
+						</Dropdown.Item>
+						<Dropdown.Item href="#" onClick={() => sortMovies('Runtime')}>
 							Runtime
-						</span>
-					</div>
-				</div>
+						</Dropdown.Item>
+					</Dropdown.Menu>
+				</Dropdown>
 			</div>
 
 			<div className="movie_card_container">{getMovieCards()}</div>
