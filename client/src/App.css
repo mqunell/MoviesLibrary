@@ -91,10 +91,6 @@ div#form_container form p {
 	margin: 0px 8px 0px 0px;
 }
 
-.dropdown-item {
-	cursor: pointer;
-}
-
 /* MovieInfo (default: modal version) */
 .movie_info,
 .movie_info_col {
@@ -322,7 +318,8 @@ form {
 		cursor: pointer;
 	}
 
-	.movie_card:hover .movie_info {
+	.movie_card:hover .movie_info,
+	.movie_card:focus .movie_info {
 		top: 55%;
 	}
 

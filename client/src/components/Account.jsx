@@ -63,14 +63,20 @@ export default function Account({ setUsername }) {
 				<div
 					id="create_tab"
 					className={'c-h ' + (createTabActive ? '' : 'inactive_tab')}
+					role="button"
+					tabIndex="0"
 					onClick={() => setCreateTabActive(true)}
+					onKeyPress={() => setCreateTabActive(true)}
 				>
 					<p>Create Account</p>
 				</div>
 				<div
 					id="login_tab"
 					className={'c-h ' + (createTabActive ? 'inactive_tab' : '')}
-					onClick={() => setCreateTabActive(true)}
+					role="button"
+					tabIndex="0"
+					onClick={() => setCreateTabActive(false)}
+					onKeyPress={() => setCreateTabActive(false)}
 				>
 					<p>Log In</p>
 				</div>

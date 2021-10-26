@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-
-// CSS
-import 'bootstrap/dist/css/bootstrap.css';
-import './App.css';
-
-// Components
 import Navbar from './components/Navbar';
 import Account from './components/Account';
 import Library from './components/Library';
 import Add from './components/Add';
 import Edit from './components/Edit';
 import Alerts from './contexts/Alerts';
+import 'bootstrap/dist/css/bootstrap.css';
+import './App.css';
 
 /**
  * Displays the Navbar and Account

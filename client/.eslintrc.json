@@ -12,12 +12,24 @@
 	},
 	"plugins": ["prettier", "react"],
 	"rules": {
+		"jsx-a11y/label-has-associated-control": [
+			2,
+			{
+				"assert": "either"
+			}
+		],
 		"no-alert": "off",
 		"no-console": "off",
 		"no-plusplus": [
 			"warn",
 			{
 				"allowForLoopAfterthoughts": true
+			}
+		],
+		"no-underscore-dangle": [
+			"warn",
+			{
+				"allow": ["_id"]
 			}
 		],
 		"no-unused-expressions": [
