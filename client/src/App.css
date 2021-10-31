@@ -4,6 +4,13 @@
 	align-items: center;
 }
 
+#root {
+	display: grid;
+	grid-template-rows: auto 1fr;
+	width: 100vw;
+	height: 100vh;
+}
+
 /* --- Navbar --- */
 nav.false button.navbar-toggler,
 nav.false div.navbar-nav {
@@ -18,64 +25,61 @@ nav.false div.navbar-nav {
 /* --- Account --- */
 div#account {
 	display: grid;
-	grid-template-columns: repeat(2, 1fr);
-	grid-template-rows: 50px 300px;
-	width: 90%;
-	max-width: 400px;
-	margin: 40px auto;
-	background-color: white;
-	border: 1px solid #333333;
-	border-radius: 6px;
-	box-shadow: 0px 0px 8px #888888;
-	overflow: hidden;
+	place-items: center;
 }
 
-div#account p {
-	margin-bottom: 0px;
-}
-
-div#create_tab,
-div#login_tab {
-	cursor: pointer;
-	transition: 0.5s;
-}
-
-.inactive_tab {
-	background-color: #cccccc;
-}
-
-.inactive_tab:hover {
-	background-color: #dddddd;
-}
-
-div#form_container {
-	grid-column: 1/3;
-	display: grid;
-	grid-template-columns: repeat(2, 50%);
-	position: relative;
-	left: 0%;
-	width: 200%;
-	height: 100%;
-	transition: 0.5s;
-}
-
-.form_container_rotated {
-	left: -100% !important;
-}
-
-div#form_container form {
+div#account form {
 	display: flex;
 	flex-direction: column;
-	justify-content: space-evenly;
-	width: 100%;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	width: 90%;
+	max-width: 400px;
 	height: 100%;
-	padding: 18px 15%;
+
+	animation: SlideRight 250ms;
+	animation-fill-mode: forwards;
 }
 
-div#form_container form button,
-div#form_container form p {
+div#account form hr {
+	width: 75%;
+	border-color: rgba(0, 0, 0, 0.5);
+}
+
+div#account form button,
+div#account form p {
 	width: max-content;
 	margin: 0px auto;
+}
+
+div#account form.animateOut {
+	animation: SlideLeft 250ms;
+	animation-fill-mode: forwards;
+}
+
+@keyframes SlideRight {
+	0% {
+		margin-right: 10%;
+		opacity: 0;
+	}
+
+	100% {
+		margin-right: 0;
+		opacity: 1;
+	}
+}
+
+@keyframes SlideLeft {
+	0% {
+		margin-right: 0;
+		opacity: 1;
+	}
+
+	100% {
+		margin-right: 10%;
+		opacity: 0;
+	}
 }
 
 /* --- Library --- */

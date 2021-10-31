@@ -5,12 +5,23 @@ import { useAlert } from '../contexts/AlertContext';
 export default function Account({ setUsername }) {
 	const addAlert = useAlert();
 
-	const [createTabActive, setCreateTabActive] = useState(false);
+	const [activeForm, setActiveForm] = useState('login');
+	const [animateOut, setAnimateOut] = useState(false);
+
 	const [createEmail, setCreateEmail] = useState('');
 	const [createPasswordOne, setCreatePasswordOne] = useState('');
 	const [createPasswordTwo, setCreatePasswordTwo] = useState('');
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
+
+	const toggleForm = () => {
+		setAnimateOut(true);
+
+		setTimeout(() => {
+			setAnimateOut(false);
+			setActiveForm(activeForm === 'login' ? 'create' : 'login');
+		}, 250);
+	};
 
 	const onSubmitCreate = (e) => {
 		e.preventDefault();
@@ -58,87 +69,67 @@ export default function Account({ setUsername }) {
 	};
 
 	return (
-		<>
-			<div id="account">
-				<div
-					id="create_tab"
-					className={'c-h ' + (createTabActive ? '' : 'inactive_tab')}
-					role="button"
-					tabIndex="0"
-					onClick={() => setCreateTabActive(true)}
-					onKeyPress={() => setCreateTabActive(true)}
-				>
-					<p>Create Account</p>
-				</div>
-				<div
-					id="login_tab"
-					className={'c-h ' + (createTabActive ? 'inactive_tab' : '')}
-					role="button"
-					tabIndex="0"
-					onClick={() => setCreateTabActive(false)}
-					onKeyPress={() => setCreateTabActive(false)}
-				>
-					<p>Log In</p>
-				</div>
-				<div
-					id="form_container"
-					className={createTabActive ? '' : 'form_container_rotated'}
-				>
-					<form onSubmit={onSubmitCreate}>
-						<input
-							type="email"
-							className="form-control"
-							id="create_email"
-							aria-describedby="emailHelp"
-							placeholder="Email"
-							required
-							onChange={(e) => setCreateEmail(e.target.value)}
-						/>
-						<input
-							type="password"
-							className="form-control"
-							id="create_password_1"
-							placeholder="Password"
-							required
-							onChange={(e) => setCreatePasswordOne(e.target.value)}
-						/>
-						<input
-							type="password"
-							className="form-control"
-							id="create_password_2"
-							placeholder="Confirm password"
-							required
-							onChange={(e) => setCreatePasswordTwo(e.target.value)}
-						/>
-						<button type="submit" className="btn btn-primary" id="create_submit">
-							Create Account
-						</button>
-					</form>
-					<form onSubmit={onSubmitLogin}>
-						<input
-							type="email"
-							className="form-control"
-							id="login_email"
-							aria-describedby="emailHelp"
-							placeholder="Email"
-							required
-							onChange={(e) => setLoginEmail(e.target.value)}
-						/>
-						<input
-							type="password"
-							className="form-control"
-							id="login_password"
-							placeholder="Password"
-							required
-							onChange={(e) => setLoginPassword(e.target.value)}
-						/>
-						<p>Forgot password</p>
-						<button type="submit" className="btn btn-primary" id="login_submit">
-							Log In
-						</button>
-					</form>
-				</div>
-			</div>
-		</>
+		<div id="account">
+			{activeForm === 'login' ? (
+				<form className={animateOut && 'animateOut'} onSubmit={onSubmitLogin}>
+					<input
+						type="email"
+						className="form-control"
+						id="login_email"
+						aria-describedby="emailHelp"
+						placeholder="Email"
+						required
+						onChange={(e) => setLoginEmail(e.target.value)}
+					/>
+					<input
+						type="password"
+						className="form-control"
+						id="login_password"
+						placeholder="Password"
+						required
+						onChange={(e) => setLoginPassword(e.target.value)}
+					/>
+					{/* <p>Forgot password</p> */}
+					<button type="submit" className="btn btn-primary" id="login_submit">
+						Log In
+					</button>
+					<hr />
+					<p onClick={toggleForm}>switch view</p>
+				</form>
+			) : (
+				<form className={animateOut && 'animateOut'} onSubmit={onSubmitCreate}>
+					<input
+						type="email"
+						className="form-control"
+						id="create_email"
+						aria-describedby="emailHelp"
+						placeholder="Email"
+						required
+						onChange={(e) => setCreateEmail(e.target.value)}
+					/>
+					<input
+						type="password"
+						className="form-control"
+						id="create_password_1"
+						placeholder="Password"
+						required
+						onChange={(e) => setCreatePasswordOne(e.target.value)}
+					/>
+					<input
+						type="password"
+						className="form-control"
+						id="create_password_2"
+						placeholder="Confirm password"
+						required
+						onChange={(e) => setCreatePasswordTwo(e.target.value)}
+					/>
+					<button type="submit" className="btn btn-primary" id="create_submit">
+						Create Account
+					</button>
+					<hr />
+					<p onClick={toggleForm}>switch view</p>
+				</form>
+			)}
+		</div>
 	);
 }
