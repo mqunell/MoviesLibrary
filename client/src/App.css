@@ -26,6 +26,7 @@ nav.false div.navbar-nav {
 div#account {
 	display: grid;
 	place-items: center;
+	background-image: linear-gradient(90deg, rgb(65, 80, 160), rgb(25, 40, 75));
 }
 
 div#account form {
@@ -36,21 +37,13 @@ div#account form {
 	gap: 1rem;
 	width: 90%;
 	max-width: 400px;
-	height: 100%;
+	padding: 2rem;
+	background-color: white;
+	border-radius: 4px;
+	box-shadow: -2px 2px 6px rgb(0 0 0 / 30%);
 
 	animation: SlideRight 250ms;
 	animation-fill-mode: forwards;
-}
-
-div#account form hr {
-	width: 75%;
-	border-color: rgba(0, 0, 0, 0.5);
-}
-
-div#account form button,
-div#account form p {
-	width: max-content;
-	margin: 0px auto;
 }
 
 div#account form.animateOut {
@@ -60,7 +53,7 @@ div#account form.animateOut {
 
 @keyframes SlideRight {
 	0% {
-		margin-right: 10%;
+		margin-right: 5%;
 		opacity: 0;
 	}
 
@@ -77,9 +70,20 @@ div#account form.animateOut {
 	}
 
 	100% {
-		margin-right: 10%;
+		margin-right: 5%;
 		opacity: 0;
 	}
+}
+
+div#account form hr {
+	width: 75%;
+	border-color: rgba(0, 0, 0, 0.5);
+}
+
+div#account form button,
+div#account form p {
+	width: max-content;
+	margin: 0px auto;
 }
 
 /* --- Library --- */
@@ -257,6 +261,10 @@ h1.series_name:not(:first-of-type) {
 	padding-right: 0px;
 }
 
+#add form {
+	padding: 18px;
+}
+
 #add_movie_card_container {
 	display: flex;
 	flex-wrap: wrap;
@@ -301,8 +309,8 @@ h1.series_name:not(:first-of-type) {
 	font-style: italic;
 }
 
-/* Custom */
-form {
+/* --- Edit --- */
+#edit form {
 	padding: 18px;
 }
 
