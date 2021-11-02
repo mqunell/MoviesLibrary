@@ -129,7 +129,7 @@ export default function Library({ username }) {
 	};
 
 	return (
-		<>
+		<div id="library">
 			<div className="sort_container">
 				<p>Sort by:</p>
 				<Dropdown>
@@ -174,6 +174,6 @@ export default function Library({ username }) {
 					<MovieInfo movie={selectedMovie} />
 				</Modal.Body>
 			</Modal>
-		</>
+		</div>
 	);
 }

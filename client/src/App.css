@@ -87,16 +87,38 @@ div#account form p {
 }
 
 /* --- Library --- */
+#library {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem;
+	overflow-y: scroll;
+}
+
+/* Scrollbar */
+#library::-webkit-scrollbar {
+	width: 12px;
+}
+
+/* Handle */
+#library::-webkit-scrollbar-thumb {
+	background: #343a40;
+	border: solid 2px transparent;
+	border-radius: 10px;
+	background-clip: content-box;
+}
+
 /* Sort */
 .sort_container {
 	display: flex;
 	align-items: center;
 	width: max-content;
-	margin: 10px auto;
+	gap: 8px;
 }
 
 .sort_container > p {
-	margin: 0px 8px 0px 0px;
+	margin-bottom: 0px;
 }
 
 /* MovieInfo (default: modal version) */
@@ -167,13 +189,13 @@ div#account form p {
 h1.series_name {
 	width: 100%;
 	margin-bottom: 0px;
-	padding: 6px 0px;
+	padding-top: 6px;
 	text-align: center;
 	border-top: 1px solid rgb(200, 200, 200);
 }
 
 h1.series_name:not(:first-of-type) {
-	margin-top: 8px;
+	margin-top: 18px;
 }
 
 .movie_card {
@@ -330,8 +352,7 @@ h1.series_name:not(:first-of-type) {
 		cursor: pointer;
 	}
 
-	.movie_card:hover .movie_info,
-	.movie_card:focus .movie_info {
+	.movie_card:hover .movie_info {
 		top: 55%;
 	}
 
