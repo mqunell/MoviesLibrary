@@ -12,23 +12,18 @@
 	},
 	"plugins": ["prettier", "react"],
 	"rules": {
-		"no-alert": "off",
+		"jsx-a11y/label-has-associated-control": [
+			2,
+			{
+				"assert": "either"
+			}
+		],
 		"no-console": "off",
-		"no-plusplus": [
-			"warn",
-			{
-				"allowForLoopAfterthoughts": true
-			}
-		],
-		"no-unused-expressions": [
-			"warn",
-			{
-				"allowTernary": true
-			}
-		],
-		"no-unused-vars": "warn",
+		"no-underscore-dangle": "off",
+		"no-use-before-define": "off",
 		"prefer-template": "off",
 		"prettier/prettier": ["warn"],
-		"radix": ["warn", "as-needed"]
+		"radix": ["warn", "as-needed"],
+		"react/prop-types": "off"
 	}
 }

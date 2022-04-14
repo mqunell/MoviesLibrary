@@ -8,7 +8,7 @@ const MovieFormatItem = ({ formatString, hasFormat, formatIcon }) => (
 			(hasFormat ? ' has_format' : '')
 		}
 	>
-		<i className={'fas fa-' + formatIcon}></i>
+		<i className={'fas fa-' + formatIcon} />
 		<p>{formatString}</p>
 	</div>
 );
@@ -34,24 +34,24 @@ export default function MovieInfo({ movie }) {
 			<div className="movie_info_col">
 				<p className="movie_info_title">{title}</p>
 				<p className="movie_info_series">
-					{seriesName !== '' ? seriesName + ' #' + seriesIndex : ''}
+					{seriesName !== '' && `${seriesName} #${seriesIndex || '?'}`}
 				</p>
 			</div>
 			<div className="movie_info_row">
 				<div>
-					<i className="far fa-calendar-alt"></i>
+					<i className="far fa-calendar-alt" />
 					<p>{year}</p>
 				</div>
 				<div>
-					<i className="fas fa-users"></i>
+					<i className="fas fa-users" />
 					<p>{rating}</p>
 				</div>
 				<div>
-					<i className="far fa-clock"></i>
+					<i className="far fa-clock" />
 					<p>{runtime}</p>
 				</div>
 				<div className="modal_only">
-					<i className="far fa-star"></i>
+					<i className="far fa-star" />
 					<p>{metacritic}/100</p>
 				</div>
 			</div>

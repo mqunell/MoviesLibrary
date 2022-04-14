@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useAlert } from '../contexts/AlertContext';
 
 export default function Edit({ location }) {
-	const { addAlert } = useAlert();
+	const addAlert = useAlert();
 
 	// Props are passed differently when using a <Link>
 	const [movie, setMovie] = useState(location.movie);

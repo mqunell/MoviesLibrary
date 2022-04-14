@@ -44,7 +44,14 @@ export default function Library({ username }) {
 
 			// Use MongoDB ID for React key
 			output.push(
-				<div className="movie_card" onClick={() => setModalMovie(movie)} key={movie._id}>
+				<div
+					key={movie._id}
+					className="movie_card"
+					role="button"
+					tabIndex="-1"
+					onClick={() => setModalMovie(movie)}
+					onKeyPress={() => setModalMovie(movie)}
+				>
 					<img
 						className="movie_card_image"
 						src={movie.poster}
@@ -118,10 +125,10 @@ export default function Library({ username }) {
 		axios
 			.delete('/api/movies', deleteData)
 			.then((response) => {
-				console.log(response); //todo
+				console.log(response); // todo
 			})
 			.catch((error) => {
-				console.log(error); //todo
+				console.log(error); // todo
 			});
 	};
 
@@ -142,15 +149,18 @@ export default function Library({ username }) {
 						id="sort_dropdown"
 						className={'dropdown-menu' + (sortDropdownDisplayed ? ' show' : '')}
 					>
-						<span className="dropdown-item" onClick={() => sortMovies('Title')}>
-							Title
-						</span>
-						<span className="dropdown-item" onClick={() => sortMovies('Series')}>
-							Series
-						</span>
-						<span className="dropdown-item" onClick={() => sortMovies('Runtime')}>
-							Runtime
-						</span>
+						{['Title', 'Series', 'Runtime'].map((item) => (
+							<span
+								key={`dropdown-${item}`}
+								className="dropdown-item"
+								role="button"
+								tabIndex="-1"
+								onClick={() => sortMovies('Title')}
+								onKeyPress={() => sortMovies('Title')}
+							>
+								Title
+							</span>
+						))}
 					</div>
 				</div>
 			</div>

@@ -3,7 +3,13 @@ import axios from 'axios';
 import { useAlert } from '../contexts/AlertContext';
 
 const AddMovieCard = ({ imdbId, title, year, poster, onClick }) => (
-	<div className="add_movie_card" onClick={() => onClick(imdbId, title)}>
+	<div
+		className="add_movie_card"
+		role="button"
+		tabIndex="-1"
+		onClick={() => onClick(imdbId, title)}
+		onKeyPress={() => onClick(imdbId, title)}
+	>
 		<div className="c-h">
 			<img src={poster} alt={title + ' poster'} />
 		</div>
