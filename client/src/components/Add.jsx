@@ -66,7 +66,7 @@ function Add({ username }) {
 	};
 
 	return (
-		<div className="container-xl">
+		<div id="add" className="container-xl">
 			<form onSubmit={onSubmit}>
 				<div className="form-row">
 					<div className="form-group col-md-12">

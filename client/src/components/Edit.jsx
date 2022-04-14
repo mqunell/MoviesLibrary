@@ -62,7 +62,7 @@ export default function Edit({ location }) {
 	} = movie;
 
 	return (
-		<div className="container-xl">
+		<div id="edit" className="container-xl">
 			<form onSubmit={onSubmit}>
 				<div className="form-group">
 					<label htmlFor="input_title">Title</label>

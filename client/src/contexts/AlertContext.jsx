@@ -26,6 +26,10 @@ const AlertContextProvider = ({ children }) => {
 	);
 };
 
+/**
+ * Custom hook that encapsulates the context's dispatch method and allows other components
+ * to create new alerts without needing to specifiy the action or generate a unique ID
+ */
 export const useAlert = () => {
 	// Get the full reducer from AlertContextProvider
 	const dispatch = useContext(AlertContext);

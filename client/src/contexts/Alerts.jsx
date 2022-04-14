@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './Alerts.css';
 
+/**
+ * Displays alerts provided by the context. Alerts automatically remove themselves
+ */
 const Alerts = ({ alerts, dispatch }) => {
 	if (!alerts) return <></>;
 
