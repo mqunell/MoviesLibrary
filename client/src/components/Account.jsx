@@ -65,6 +65,16 @@ export default function Account({ setUsername }) {
 	return (
 		<div id="account_container_outer">
 			<div id="account_container_inner">
+				<div id="instructions">
+					<h1>Catalog your movies in 3 steps</h1>
+					<h2>1</h2>
+					<p>Search for movies by title</p>
+					<h2>2</h2>
+					<p>Click or tap the ones you own</p>
+					<h2>3</h2>
+					<p>Select the format(s) you own it on, and edit any other info you want</p>
+				</div>
+
 				<div id="account">
 					<div
 						id="create_tab"
