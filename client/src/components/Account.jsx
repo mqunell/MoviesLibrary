@@ -12,6 +12,7 @@ export default function Account({ setUsername }) {
 	const [loginEmail, setLoginEmail] = useState('');
 	const [loginPassword, setLoginPassword] = useState('');
 
+	// Create account
 	const onSubmitCreate = (e) => {
 		e.preventDefault();
 
@@ -38,6 +39,7 @@ export default function Account({ setUsername }) {
 			.catch((error) => addAlert({ type: 'danger', text: error.response.data }));
 	};
 
+	// Login to account
 	const onSubmitLogin = (e) => {
 		e.preventDefault();
 
@@ -56,6 +58,9 @@ export default function Account({ setUsername }) {
 			})
 			.catch((error) => addAlert({ type: 'danger', text: error.response.data }));
 	};
+
+	// Login to demo account
+	const loginDemo = () => setUsername('demo@movieslibrary.com');
 
 	return (
 		<div id="account_container_outer">
@@ -133,10 +138,14 @@ export default function Account({ setUsername }) {
 								required
 								onChange={(e) => setLoginPassword(e.target.value)}
 							/>
-							{/* <p>Forgot password</p> */}
-							<button type="submit" className="btn btn-primary" id="login_submit">
-								Log In
-							</button>
+							<div id="login_buttons">
+								<button type="submit" className="btn btn-primary">
+									Log In
+								</button>
+								<button type="button" className="btn btn-primary" onClick={loginDemo}>
+									Demo Account
+								</button>
+							</div>
 						</form>
 					</div>
 				</div>

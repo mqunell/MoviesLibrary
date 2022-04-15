@@ -86,6 +86,11 @@ div#form_container form p {
 	margin: 0px auto;
 }
 
+div#login_buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
 /* --- Library --- */
 /* Sort */
 .sort_container {
