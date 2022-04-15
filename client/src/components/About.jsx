@@ -113,12 +113,16 @@ export default function About() {
 						Movies Library ended up serving its purpose for me: tracking the movies I own
 						and in which formats. Keeping track of these things turned out to be a niche
 						problem and I didn't find much interest in the project, so development
-						essentially stopped there and I moved on to the next thing. If I were to
-						continue development, the biggest new feature I would consider is tracking
-						movie series names and numbers myself, since they aren't part of the OMDb API.
-						For example, if someone added Harry Potter and the Sorcerer's Stone to their
-						library, it would also come with "Harry Potter" as the series name and "1" as
-						the series number by default.
+						essentially stopped there and I moved on to the next thing.
+					</p>
+					<p>
+						If I were to continue development, the biggest new feature I would consider is
+						tracking movie series names and numbers myself, since they aren't part of the
+						OMDb API. For example, if someone added Harry Potter and the Sorcerer's Stone
+						to their library, it would also come with "Harry Potter" as the series name
+						and "1" as the series number by default. I would also definitely need to
+						rewrite the accounts and logging in code, since it's extremely simple at this
+						point and easily exploitable.
 					</p>
 				</div>
 			</div>
