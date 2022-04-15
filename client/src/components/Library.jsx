@@ -3,6 +3,7 @@ import { Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import MovieInfo from './MovieInfo';
+import { useAlert } from '../contexts/AlertContext';
 
 export default function Library({ username }) {
 	const [movies, setMovies] = useState([]);
@@ -10,6 +11,8 @@ export default function Library({ username }) {
 	const [sortDropdownDisplayed, setSortDropdownDisplayed] = useState(false);
 	const [selectedMovie, setSelectedMovie] = useState('');
 	const [showModal, setShowModal] = useState(false);
+
+	const addAlert = useAlert();
 
 	useEffect(() => {
 		// Get movies from backend, sort by title, and set to state
@@ -111,24 +114,31 @@ export default function Library({ username }) {
 		setShowModal(true);
 	};
 
-	const deleteMovie = () => {
-		// Remove the movie locally and close the modal
-		setMovies(movies.filter((movie) => movie._id !== selectedMovie._id));
-		setShowModal(false);
+	const deleteSelectedMovie = () => {
+		const { _id, title } = selectedMovie;
+
+		addAlert({ type: 'info', text: `Deleting ${title}...` });
 
 		// Set up DELETE request payload (requires a 'data' key)
 		const deleteData = {
-			data: { movieMongoId: selectedMovie._id },
+			data: { movieMongoId: _id },
 		};
 
 		// Send the DELETE request
 		axios
 			.delete('/api/movies', deleteData)
-			.then((response) => {
-				console.log(response); // todo
+			.then(() => {
+				// Remove the movie locally, close the modal, and add an alert
+				setMovies(movies.filter((movie) => movie._id !== _id));
+				setShowModal(false);
+				addAlert({ type: 'success', text: `${title} deleted` });
 			})
 			.catch((error) => {
-				console.log(error); // todo
+				const errorMessage = error.response
+					? error.response.data
+					: 'Could not connect to server';
+
+				addAlert({ type: 'danger', text: `Error: ${errorMessage}` });
 			});
 	};
 
@@ -183,7 +193,11 @@ export default function Library({ username }) {
 									Edit
 								</button>
 							</Link>
-							<button type="button" className="btn btn-danger" onClick={deleteMovie}>
+							<button
+								type="button"
+								className="btn btn-danger"
+								onClick={deleteSelectedMovie}
+							>
 								Delete
 							</button>
 						</div>
