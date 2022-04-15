@@ -9,13 +9,7 @@ function hideNavbar() {
 }
 
 const MyNavbar = ({ signedIn, setUsername }) => (
-	<Navbar
-		collapseOnSelect
-		expand="sm"
-		bg="dark"
-		variant="dark"
-		className={signedIn.toString()}
-	>
+	<Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
 		<Navbar.Brand as={NavLink} to="/">
 			Movies Library
 		</Navbar.Brand>
@@ -24,20 +18,28 @@ const MyNavbar = ({ signedIn, setUsername }) => (
 
 		<Navbar.Collapse id="responsive-navbar-nav">
 			<Nav>
-				<Nav.Link as={NavLink} to="/add" onClick={hideNavbar}>
-					Add
+				{signedIn && (
+					<Nav.Link as={NavLink} to="/add" onClick={hideNavbar}>
+						Add
+					</Nav.Link>
+				)}
+
+				<Nav.Link as={NavLink} to="/about" onClick={hideNavbar}>
+					About
 				</Nav.Link>
 
-				<Nav.Link
-					as={NavLink}
-					to="/"
-					onClick={() => {
-						hideNavbar();
-						setUsername('');
-					}}
-				>
-					Log Out
-				</Nav.Link>
+				{signedIn && (
+					<Nav.Link
+						as={NavLink}
+						to="/"
+						onClick={() => {
+							hideNavbar();
+							setUsername('');
+						}}
+					>
+						Log Out
+					</Nav.Link>
+				)}
 			</Nav>
 		</Navbar.Collapse>
 	</Navbar>
