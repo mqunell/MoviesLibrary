@@ -358,44 +358,6 @@ form {
 	padding: 18px;
 }
 
-/* --- About --- */
-div#about_outer {
-	padding: 20px;
-}
-
-div#about_inner {
-	width: 95%;
-	max-width: 800px;
-	margin: 0 auto;
-}
-
-div#about_inner > div {
-	padding: 12px;
-}
-
-div#about_inner h1 {
-	font-size: 1.5rem;
-}
-
-div#about_inner h2 {
-	margin: 1rem 0 0.25rem;
-	font-size: 1.1rem;
-	font-weight: 500;
-	font-style: italic;
-}
-
-div#about_inner p {
-	margin-bottom: 0.25rem;
-}
-
-div#about_inner ul {
-	margin-bottom: 0.5rem;
-}
-
-div#about_inner hr {
-	width: 100%;
-}
-
 @media only screen and (min-width: 576px) {
 	.navbar-nav {
 		width: 100%;

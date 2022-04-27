@@ -7,7 +7,6 @@ import Library from './components/Library';
 import Add from './components/Add';
 import Edit from './components/Edit';
 import Alerts from './contexts/Alerts';
-import About from './components/About';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 
@@ -54,7 +53,6 @@ function App() {
 				/>
 				<Route path="/add" render={() => <Add username={username} />} />
 				<Route path="/edit" component={Edit} />
-				<Route path="/about" component={About} />
 
 				<Redirect to="/" />
 			</Switch>

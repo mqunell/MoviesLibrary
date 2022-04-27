@@ -24,8 +24,12 @@ const MyNavbar = ({ signedIn, setUsername }) => (
 					</Nav.Link>
 				)}
 
-				<Nav.Link as={NavLink} to="/about" onClick={hideNavbar}>
-					About
+				<Nav.Link
+					as={NavLink}
+					to="https://github.com/mqunell/MoviesLibrary"
+					onClick={hideNavbar}
+				>
+					GitHub
 				</Nav.Link>
 
 				{signedIn && (
